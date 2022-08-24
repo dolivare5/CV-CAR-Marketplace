@@ -925,6 +925,7 @@ h4 {
 
 h5 {
   font-size: 14px;
+  color: #fff;
 }
 
 h6 {
@@ -934,7 +935,7 @@ h6 {
 p {
   font-size: 1.4rem;
   line-height: 1.6em;
-  color: #666;
+  color: #fff;
 }
 
 p span {
@@ -1971,7 +1972,7 @@ button {
   padding: 0 20px;
   border: none;
   height: 50px;
-  background-color: transparent;
+  background-color: #fff;
   border: 1px solid #dddddd;
   border-radius: 0;
   box-shadow: 0 0 rgba(0, 0, 0, 0);
@@ -11828,6 +11829,7 @@ textarea.form-control {
 
 .ps-form--account .ps-form__content {
   padding: 30px 30px 0;
+  background-color: #000;
 }
 
 .ps-form--account .ps-form__content h5 {
@@ -11838,10 +11840,11 @@ textarea.form-control {
 
 .ps-form--account .ps-form__footer {
   padding: 30px 30px;
+  background-color: #000;
 }
 
 .ps-form--account .ps-tab {
-  background-color: #ffffff;
+  background-color: #000;
 }
 
 .ps-form--order-tracking {
