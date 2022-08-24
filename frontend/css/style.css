@@ -15721,6 +15721,14 @@ textarea.form-control {
           align-items: center;
 }
 
+.header--standard .header__content-register {
+  max-width: max-content;
+  padding-left: 550px;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
 .header--standard .header__content-left .ps-logo {
   margin-right: 30px;
 }
