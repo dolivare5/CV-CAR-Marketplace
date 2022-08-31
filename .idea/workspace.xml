@@ -1,8 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;MTConfigurable&quot;
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="En este commit se desarrolló un modelo de Categoría con Sequelize, se definieron cada una de las rutas y controladores para este modelo, Además se creó un archivo para un contenedor con Docker y se registraron algunas variables de entorno. Gran parte del código que se escribió en este Commit está documentado tanto en inglés como en español.">
+      <change afterPath="$PROJECT_DIR$/backend/controllers/categoryController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/TypeOfVehicle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="staging" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2DlFp35lnQSPEWIpBCIiAebZFRC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Project.color": "49614a",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "last_opened_file_path": "D:/Datos Deiber/CVCAR/CVCAR-Marketplace/backend/models",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "D:\\Datos Deiber\\CVCAR\\CVCAR-Marketplace\\backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="Push.Settings">
+    <force-push-targets>
+      <force-push-target remote-path="origin" branch="developers" />
+    </force-push-targets>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Datos Deiber\CVCAR\CVCAR-Marketplace\backend\models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Datos Deiber\CVCAR\CVCAR-Marketplace\backend" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="" />
+      <created>1661265945950</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1661265945950</updated>
+      <workItem from="1661265948156" duration="365000" />
+      <workItem from="1661282914485" duration="452000" />
+      <workItem from="1661283379481" duration="548000" />
+      <workItem from="1661283994177" duration="26000" />
+      <workItem from="1661284028264" duration="60000" />
+      <workItem from="1661284097514" duration="3007000" />
+      <workItem from="1661287157097" duration="273000" />
+      <workItem from="1661287441376" duration="2546000" />
+      <workItem from="1661437130032" duration="852000" />
+      <workItem from="1661437999870" duration="1111000" />
+      <workItem from="1661439128590" duration="342000" />
+      <workItem from="1661439479409" duration="5244000" />
+      <workItem from="1661448194276" duration="1057000" />
+      <workItem from="1661465873509" duration="1383000" />
+      <workItem from="1661467273014" duration="867000" />
+      <workItem from="1661612364899" duration="595000" />
+      <workItem from="1661615565469" duration="1064000" />
+      <workItem from="1661616646704" duration="208000" />
+      <workItem from="1661616862433" duration="458000" />
+      <workItem from="1661617329055" duration="29286000" />
+      <workItem from="1661799774694" duration="11566000" />
+      <workItem from="1661951976544" duration="5279000" />
+      <workItem from="1661957283951" duration="3132000" />
+    </task>
+    <task id="LOCAL-00001" summary="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres.">
+      <created>1661266084712</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1661266084712</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres.">
+      <created>1661266213932</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1661266213932</updated>
+    </task>
+    <task id="LOCAL-00003" summary="En este commit se desarrolló un modelo de Categoría con Sequelize, se definieron cada una de las rutas y controladores para este modelo, Además se creó un archivo para un contenedor con Docker y se registraron algunas variables de entorno. Gran parte del código que se escribió en este Commit está documentado tanto en inglés como en español.">
+      <created>1661957326226</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1661957326227</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="staging" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="developers" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres." />
+    <MESSAGE value="En este commit se desarrolló un modelo de Categoría con Sequelize, se definieron cada una de las rutas y controladores para este modelo, Además se creó un archivo para un contenedor con Docker y se registraron algunas variables de entorno. Gran parte del código que se escribió en este Commit está documentado tanto en inglés como en español." />
+    <option name="LAST_COMMIT_MESSAGE" value="En este commit se desarrolló un modelo de Categoría con Sequelize, se definieron cada una de las rutas y controladores para este modelo, Además se creó un archivo para un contenedor con Docker y se registraron algunas variables de entorno. Gran parte del código que se escribió en este Commit está documentado tanto en inglés como en español." />
+  </component>
 </project>
