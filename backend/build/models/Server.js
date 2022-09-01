@@ -55,6 +55,7 @@ const categoryRouter_1 = __importDefault(require("../routes/categoryRouter"));
     English: The connection file is imported, since it contains the connection object to the db (db).
  */
 const connection_1 = __importDefault(require("../db/connection"));
+const typeOfVehicleRouter_1 = __importDefault(require("../routes/typeOfVehicleRouter"));
 /*
     Spanish: Creamos una clase llamada Server, ya que es una forma de organizar el código asociado al servidor de forma
     entendible con el objetivo de simplificar el funcionamiento de nuestro programa. Además, hay que tener en cuenta que
@@ -76,6 +77,7 @@ class Server {
          */
         this.apiPaths = {
             categories: '/api/categories',
+            typeOfVehicles: '/api/typeOfVehicles',
         };
         /*
             Spanish: Se inicializa el servidor de express.
@@ -157,6 +159,7 @@ class Server {
      */
     routes() {
         this.app.use(this.apiPaths.categories, categoryRouter_1.default);
+        this.app.use(this.apiPaths.typeOfVehicles, typeOfVehicleRouter_1.default);
     }
 }
 exports.default = Server;

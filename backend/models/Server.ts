@@ -44,6 +44,7 @@ import categoryRouter from "../routes/categoryRouter";
     English: The connection file is imported, since it contains the connection object to the db (db).
  */
 import db from "../db/connection";
+import typeOfVehicleRouter from "../routes/typeOfVehicleRouter";
 
 /*
     Spanish: Creamos una clase llamada Server, ya que es una forma de organizar el código asociado al servidor de forma
@@ -79,6 +80,7 @@ class Server {
      */
     private apiPaths = {
         categories : '/api/categories',
+        typeOfVehicles : '/api/typeOfVehicles',
     };
     
     constructor() {
@@ -168,6 +170,7 @@ class Server {
      */
     routes () {
         this.app.use( this.apiPaths.categories, categoryRouter );
+        this.app.use( this.apiPaths.typeOfVehicles, typeOfVehicleRouter );
     }
 
 }
