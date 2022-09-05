@@ -168,9 +168,9 @@ const postTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         /*
             Spanish: Si no existe un tipo de vehículo que sea igual al ingresado se procede a crear un objeto de tipo
-            TypeOfVehicle con la información que se recibe.
+            TypeOfVehicles con la información que se recibe.
             English: If there is no vehicle type equal to the one entered, we proceed to create an object of type
-            TypeOfVehicle with the information received.
+            TypeOfVehicles with the information received.
         */
         // @ts-ignore
         const typeOfVehicle = new TypeOfVehicle_1.default(body);

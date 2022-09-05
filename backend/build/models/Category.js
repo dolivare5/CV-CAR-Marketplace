@@ -19,7 +19,7 @@ const connection_1 = __importDefault(require("../db/connection"));
     sincroniza la configuración. En cuanto a los registros que se almacenen a través de este modelo contienen
     información sobre las categorías de los diferentes vehículos asociados al sistema de venta (Marketplace).
     
-    English: A template is then created to create, modify, read and delete records from the Category table.
+    English: A template is then created to create, modify, read and delete records from the Categories table.
     It is important to note that this is an object and that it is reflected in the database at the moment when the
     the configuration is synchronized. As for the records that are stored through this model, they contain information
     about the categories of the different categories. contain information about the categories of the different
@@ -86,8 +86,8 @@ const Category = connection_1.default.define('Category', {
     timestamps: false
 });
 /*
-    Spanish: Finalmente, se exporta el modelo de Category para que se pueda utilizar en otras partes del proyecto.
-    English: Finally, the Category model is exported so that it can be used in other parts of the project.
+    Spanish: Finalmente, se exporta el modelo de Categories para que se pueda utilizar en otras partes del proyecto.
+    English: Finally, the Categories model is exported so that it can be used in other parts of the project.
 */
 exports.default = Category;
-//# sourceMappingURL=Category.js.map
+//# sourceMappingURL=Categories.js.map

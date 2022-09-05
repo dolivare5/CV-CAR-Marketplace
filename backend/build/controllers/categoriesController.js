@@ -18,7 +18,7 @@ exports.putCategory = exports.postCategory = exports.getCategory = exports.getCa
     English: Functions and methods necessary for the validation of each field received as a parameter are imported here.
  */
 const express_validator_1 = require("express-validator");
-const Category_1 = __importDefault(require("../models/Category"));
+const Categories_1 = __importDefault(require("../models/Categories"));
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../db/connection"));
 //----------------------------------------------------------------------------------------------- //
@@ -32,12 +32,12 @@ const getCategories = (_req, res) => __awaiter(void 0, void 0, void 0, function*
             Spanish: Se realiza una consulta à la base de datos para extraer las categorías registradas.
             English: A database query is performed to extract the registered categories.
         */
-        const categories = yield Category_1.default.findAll({
+        const categories = yield Categories_1.default.findAll({
             attributes: ['Cat_Name', 'Cat_Description'],
             where: { Cat_Status: 1 }
         });
         if (!categories) {
-            res.status(200).send({ errores: [{ msg: 'No hay categorías registradas en el sistema' }] });
+            res.status(200).send({ errors: [{ msg: 'No hay categorías registradas en el sistema' }] });
         }
         /*
             Spanish: Finalmente retorno la información de todas las categorías.
@@ -84,7 +84,7 @@ const getCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             English: A query is made to the database to extract the category that has the received id registered.
             id that is received.
         */
-        const category = yield Category_1.default.findByPk(Cat_Id);
+        const category = yield Categories_1.default.findByPk(Cat_Id);
         if (!category) {
             res.status(200).send({ errores: [{ msg: 'El código ingresado no corresponde a ninguna categoría  ' }] });
         }
@@ -148,7 +148,7 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             Spanish: Se comprueba si existe o no una Categoría con el nombre que se recibe.
             English: It is checked whether a Categories exists with the name received.
         */
-        const existCategory = yield Category_1.default.findOne({
+        const existCategory = yield Categories_1.default.findOne({
             where: {
                 Cat_Name: body.Cat_Name
             }
@@ -159,7 +159,7 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         */
         if (existCategory) {
             return res.status(400).json({
-                errores: [
+                errors: [
                     {
                         msg: "La Categoría ingresada ya se encuentra registrada"
                     }
@@ -173,7 +173,7 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             Categories object with the information received.
         */
         // @ts-ignore
-        const category = new Category_1.default(body);
+        const category = new Categories_1.default(body);
         /*
             Spanish: Una vez se ha creado el objeto, se procede a guardar la información de dicho objeto à la db.
         
@@ -187,7 +187,7 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         // @ts-ignore
         const { Cat_Name, Cat_Description } = category;
         res.status(200).send({
-            errores: [
+            response: [
                 {
                     msg: "Categoría registrada correctamente.",
                     category: {
@@ -227,9 +227,9 @@ const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             Spanish: Se consulta en la base de datos para verificar si existe o no el id que se recibe.
             English: The database is queried to verify whether the received id exists.
         */
-        const category = yield Category_1.default.findByPk(Cat_Id);
+        const category = yield Categories_1.default.findByPk(Cat_Id);
         if (!category) {
-            return res.json({ errores: [{ msg: 'El código ingresado no corresponde a ninguna categoría  ' }] });
+            return res.json({ errors: [{ msg: 'El código ingresado no corresponde a ninguna categoría  ' }] });
         }
         /*
             Spanish: Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no
@@ -269,7 +269,7 @@ const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             name. Otherwise, proceed with the registration.
         */
         if (existCategoryRepeated.length > 0) {
-            return res.status(200).send({ errores: [{ msg: 'Lo sentimos, la categoría ingresada ya se encuentra registrada' }] });
+            return res.status(200).send({ errors: [{ msg: 'Lo sentimos, la categoría ingresada ya se encuentra registrada' }] });
         }
         /*
             Spanish: Se actualiza el objeto de categoría con los datos que se reciben en el body.
@@ -332,4 +332,4 @@ const validateFieldsCategory = (req, _res) => __awaiter(void 0, void 0, void 0, 
      */
     return (0, express_validator_1.validationResult)(req);
 });
-//# sourceMappingURL=categoryController.js.map
+//# sourceMappingURL=categoriesController.js.map

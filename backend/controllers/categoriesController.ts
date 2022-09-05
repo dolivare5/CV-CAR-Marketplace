@@ -4,7 +4,7 @@ import {Request, Response} from "express";
     English: Functions and methods necessary for the validation of each field received as a parameter are imported here.
  */
 import {check, validationResult} from 'express-validator';
-import Category from "../models/Category";
+import Categories from "../models/Categories";
 import {QueryTypes} from "sequelize";
 import db from "../db/connection";
 
@@ -23,13 +23,13 @@ const getCategories = async (_req: Request, res: Response) => {
             Spanish: Se realiza una consulta à la base de datos para extraer las categorías registradas.
             English: A database query is performed to extract the registered categories.
         */
-        const categories = await Category.findAll({
+        const categories = await Categories.findAll({
             attributes:[ 'Cat_Name', 'Cat_Description'],
             where: {Cat_Status: 1}
         });
         
         if(!categories){
-            res.status(200).send({ errores: [ { msg: 'No hay categorías registradas en el sistema'} ]});
+            res.status(200).send({ errors: [ { msg: 'No hay categorías registradas en el sistema'} ]});
         }
         /*
             Spanish: Finalmente retorno la información de todas las categorías.
@@ -83,7 +83,7 @@ const getCategory = async (req: Request, res: Response) => {
             English: A query is made to the database to extract the category that has the received id registered.
             id that is received.
         */
-        const category = await Category.findByPk(Cat_Id);
+        const category = await Categories.findByPk(Cat_Id);
     
         if(!category){
             res.status(200).send({ errores: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
@@ -153,9 +153,9 @@ const postCategory = async (req: Request, res: Response) => {
         }
         /*
             Spanish: Se comprueba si existe o no una Categoría con el nombre que se recibe.
-            English: It is checked whether a Category exists with the name received.
+            English: It is checked whether a Categories exists with the name received.
         */
-        const existCategory = await Category.findOne({
+        const existCategory = await Categories.findOne({
             where: {
                 Cat_Name: body.Cat_Name
             }
@@ -167,7 +167,7 @@ const postCategory = async (req: Request, res: Response) => {
         */
         if (existCategory) {
             return res.status(400).json({
-                errores: [
+                errors: [
                     {
                         msg: "La Categoría ingresada ya se encuentra registrada"
                     }
@@ -176,12 +176,12 @@ const postCategory = async (req: Request, res: Response) => {
         }
         /*
             Spanish: Si no existe una categoría que sea igual à la ingresada se procede a crear un objeto de tipo
-            Category con la información que se recibe.
+            Categories con la información que se recibe.
             English: If there is no category equal to the one entered, we proceed to create an object of type
-            Category object with the information received.
+            Categories object with the information received.
         */
         // @ts-ignore
-        const category = new Category(body);
+        const category = new Categories(body);
         /*
             Spanish: Una vez se ha creado el objeto, se procede a guardar la información de dicho objeto à la db.
         
@@ -195,7 +195,7 @@ const postCategory = async (req: Request, res: Response) => {
         // @ts-ignore
         const { Cat_Name, Cat_Description} = category;
         res.status(200).send({
-            errores: [
+            response: [
                 {
                     msg: "Categoría registrada correctamente.",
                     category : {
@@ -241,9 +241,9 @@ const putCategory = async (req: Request, res: Response) => {
             Spanish: Se consulta en la base de datos para verificar si existe o no el id que se recibe.
             English: The database is queried to verify whether the received id exists.
         */
-        const category = await Category.findByPk(Cat_Id);
+        const category = await Categories.findByPk(Cat_Id);
         if(!category){
-            return res.json({ errores: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
+            return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
         }
     
         /*
@@ -289,7 +289,7 @@ const putCategory = async (req: Request, res: Response) => {
             name. Otherwise, proceed with the registration.
         */
         if (existCategoryRepeated.length >0){
-            return res.status(200).send({ errores: [ { msg: 'Lo sentimos, la categoría ingresada ya se encuentra registrada'}]});
+            return res.status(200).send({ errors: [ { msg: 'Lo sentimos, la categoría ingresada ya se encuentra registrada'}]});
         }
         
         /*

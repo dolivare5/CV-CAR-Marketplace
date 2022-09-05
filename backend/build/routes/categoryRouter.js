@@ -9,4 +9,4 @@ categoryRouter.get('/:Cat_Id', categoryController_1.getCategory);
 categoryRouter.post('/createCategory', categoryController_1.postCategory);
 categoryRouter.put('/updateCategory/:Cat_Id', categoryController_1.putCategory);
 exports.default = categoryRouter;
-//# sourceMappingURL=categoryRouter.js.map
+//# sourceMappingURL=categoriesRouter.js.map

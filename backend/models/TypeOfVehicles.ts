@@ -1,18 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /*
     Spanish: Se hace uso de DataType para acceder a los datos incorporados por sequelize
     English: DataType is used to access the data incorporated by sequelize
  */
-const sequelize_1 = require("sequelize");
+import {DataTypes, Model} from "sequelize";
+
 /*
     Spanish: Se realiza la importación del objeto de conexión y configuración de sequelize para manipular la bd.
     The import of the connection object and sequelize configuration to manipulate the database is performed.
  */
-const connection_1 = __importDefault(require("../db/connection"));
+import db from "../db/connection";
+
+class TypeOfVehicles extends Model {};
+
 /*
     Spanish: A continuación se crea un modelo para crear, modificar, leer y eliminar registros de la tabla de Tipos de
     Vehículos. Es importante tener en cuenta que esto es un objeto y que se refleja en la base de datos en el momento
@@ -25,7 +24,9 @@ const connection_1 = __importDefault(require("../db/connection"));
     they contain information about the different types of vehicles associated with the vehicle information about the
     different types of vehicles associated to the sales system (Marketplace).
  */
-const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
+
+// @ts-ignore
+TypeOfVehicles.init({
     /*
         Spanish: El campo TypVeh_Id hace referencia al identificador único de cada tipo de vehículo registrado en
         la base de datos. Adicional a esto, este campo es llave primaria, auto incremental, no se aceptan valores nulos,
@@ -37,12 +38,13 @@ const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
         the identifier is generated automatically and is of SMALLINT type, since it is sufficient for the number of records to be
         records to be inserted, thus optimizing the database.
      */
-    TypVeh_Id: {
-        type: sequelize_1.DataTypes.SMALLINT,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+    TypVeh_Id : {
+        type : DataTypes.SMALLINT,
+        primaryKey : true,
+        autoIncrement : true,
+        allowNull : false
     },
+    
     /*
         Spanish: En el campo o columna TypVeh_Name se almacena el nombre del tipo de vehículo. El nombre es de typo String
         (VARCHAR), único y no se aceptan valores nulos en este campo.
@@ -51,10 +53,11 @@ const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
         (VARCHAR), unique and null values are not accepted in this field.
      */
     TypVeh_Name: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        type : DataTypes.STRING,
+        allowNull : false,
+        unique : true
     },
+    
     /*
         Spanish: El campo Cat_Description almacena una breve descripción de la categoría si el usuario quiere
         agregarla. Este campo es opcional y es de tipo String.
@@ -63,16 +66,17 @@ const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
         want to add it. This field is optional and is of String type.
      */
     TypVeh_Description: {
-        type: sequelize_1.DataTypes.STRING,
+        type : DataTypes.STRING,
         defaultValue: ''
     },
+    
     /*
         Spanish: El campo TypVeh_Status almacena el estado de un tipo de vehículo. Este campo es opcional y es de tipo Smallint.
         
         English: English: The Cat_Status field stores the status of a category. This field is optional and is of type Smallint
      */
-    TypVeh_Status: {
-        type: sequelize_1.DataTypes.SMALLINT,
+    TypVeh_Status : {
+        type : DataTypes.SMALLINT,
         defaultValue: 1
     }
 }, {
@@ -83,11 +87,13 @@ const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
        English: The timestamps property is added with the value of false so that the creation and update date columns
        are not added creation and update date columns are not added.
     */
-    timestamps: false
+    timestamps: false,
+    sequelize: db,
+    modelName: 'Type_Of_Vehicles'
 });
+
 /*
     Spanish: Finalmente, se exporta el modelo de TypeOfVehicles para que se pueda utilizar en otras partes del proyecto.
     English: Finally, the TypeOfVehicles model is exported so that it can be used in other parts of the project.
 */
-exports.default = TypeOfVehicle;
-//# sourceMappingURL=TypeOfVehicles.js.map
+export default TypeOfVehicles;

@@ -2,7 +2,7 @@
     Spanish: Se hace uso de DataType para acceder a los datos incorporados por sequelize
     English: DataType is used to access the data incorporated by sequelize
  */
-import {DataTypes} from "sequelize";
+import {DataTypes, Model} from "sequelize";
 
 /*
     Spanish: Se realiza la importación del objeto de conexión y configuración de sequelize para manipular la bd.
@@ -16,13 +16,16 @@ import db from "../db/connection";
     sincroniza la configuración. En cuanto a los registros que se almacenen a través de este modelo contienen
     información sobre las categorías de los diferentes vehículos asociados al sistema de venta (Marketplace).
     
-    English: A template is then created to create, modify, read and delete records from the Category table.
+    English: A template is then created to create, modify, read and delete records from the Categories table.
     It is important to note that this is an object and that it is reflected in the database at the moment when the
     the configuration is synchronized. As for the records that are stored through this model, they contain information
     about the categories of the different categories. contain information about the categories of the different
     vehicles associated to the sales system (Marketplace).
  */
-const Category = db.define('Category', {
+class Categories extends Model {}
+
+// @ts-ignore
+Categories.init({
     /*
         Spanish: El campo Cat_Id hace referencia al identificador único de cada registro o categoría registrada en
         la base de datos. Adicional a esto, este campo es llave primaria, auto incremental, no se aceptan valores nulos,
@@ -75,7 +78,7 @@ const Category = db.define('Category', {
         type : DataTypes.SMALLINT,
         defaultValue: 1
     }
-},{
+}, {
     /*
        Spanish: Se agrega la propiedad timestamps con el valor de false para que no se agreguen las columnas de fecha
        de creación y de actualización.
@@ -83,11 +86,16 @@ const Category = db.define('Category', {
        English: The timestamps property is added with the value of false so that the creation and update date columns
        are not added creation and update date columns are not added.
     */
-    timestamps: false
-})
+    timestamps: false,
+    sequelize: db,
+    modelName:'Categories'
+});
 
 /*
-    Spanish: Finalmente, se exporta el modelo de Category para que se pueda utilizar en otras partes del proyecto.
-    English: Finally, the Category model is exported so that it can be used in other parts of the project.
+    Spanish: Finalmente, se exporta el modelo de Categories para que se pueda utilizar en otras partes del proyecto.
+    English: Finally, the Categories model is exported so that it can be used in other parts of the project.
 */
-export default Category;
+
+
+
+export default Categories;

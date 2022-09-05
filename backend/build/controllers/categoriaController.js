@@ -57,7 +57,7 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         /*
             Spanish: Se comprueba si existe o no una Categoría con el nombre que se recibe.
-            English: It is checked whether or not a Category exists with the name received.
+            English: It is checked whether or not a Categories exists with the name received.
         */
         const existCategory = yield Category_1.default.findOne({
             where: {
@@ -79,9 +79,9 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         /*
             Spanish: Si no existe una categoría que sea igual a la ingresada se procede a crear un objeto de tipo
-            Category con la información que se recibe.
+            Categories con la información que se recibe.
             English: If there is no category equal to the one entered, we proceed to create an object of type
-            Category object with the information received.
+            Categories object with the information received.
         */
         // @ts-ignore
         const category = new Category_1.default(body);

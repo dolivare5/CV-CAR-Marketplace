@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getTypesVehicles, getTypeVehicle, postTypeVehicle, putTypeVehicle } from "../controllers/typeOfVehicleController";
+import { getTypesVehicles, getTypeVehicle, postTypeVehicle, putTypeVehicle } from "../controllers/typeOfVehiclesController";
 
 const typeOfVehicle = Router();
 

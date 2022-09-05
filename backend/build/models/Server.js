@@ -48,14 +48,17 @@ const express_1 = __importDefault(require("express"));
     post, put and each of the get, post, put and delete requests associated to the actions that can be performed on the
     category table table.
  */
-const categoryRouter_1 = __importDefault(require("../routes/categoryRouter"));
+const categoriesRouter_1 = __importDefault(require("../routes/categoriesRouter"));
 /*
     Spanish: Se importa el archivo connection, ya que este contiene el objeto de coneción a la db (db).
     
     English: The connection file is imported, since it contains the connection object to the db (db).
  */
 const connection_1 = __importDefault(require("../db/connection"));
-const typeOfVehicleRouter_1 = __importDefault(require("../routes/typeOfVehicleRouter"));
+const typeOfVehiclesRouter_1 = __importDefault(require("../routes/typeOfVehiclesRouter"));
+const subCategoriesRouter_1 = __importDefault(require("../routes/subCategoriesRouter"));
+const Categories_1 = __importDefault(require("./Categories"));
+const Associations_1 = require("./Associations");
 /*
     Spanish: Creamos una clase llamada Server, ya que es una forma de organizar el código asociado al servidor de forma
     entendible con el objetivo de simplificar el funcionamiento de nuestro programa. Además, hay que tener en cuenta que
@@ -78,6 +81,7 @@ class Server {
         this.apiPaths = {
             categories: '/api/categories',
             typeOfVehicles: '/api/typeOfVehicles',
+            subCategories: '/api/subCategories'
         };
         /*
             Spanish: Se inicializa el servidor de express.
@@ -121,6 +125,8 @@ class Server {
             try {
                 yield connection_1.default.authenticate();
                 yield connection_1.default.sync();
+                // @ts-ignore
+                yield Promise.all([Associations_1.Categories.bulkCreate(Categories_1.default)]);
                 console.log('Successful database connection');
             }
             catch (e) {
@@ -158,8 +164,9 @@ class Server {
         English: Method is used to link and record each of the paths associated with the corresponding files.
      */
     routes() {
-        this.app.use(this.apiPaths.categories, categoryRouter_1.default);
-        this.app.use(this.apiPaths.typeOfVehicles, typeOfVehicleRouter_1.default);
+        this.app.use(this.apiPaths.categories, categoriesRouter_1.default);
+        this.app.use(this.apiPaths.typeOfVehicles, typeOfVehiclesRouter_1.default);
+        this.app.use(this.apiPaths.subCategories, subCategoriesRouter_1.default);
     }
 }
 exports.default = Server;

@@ -36,7 +36,7 @@ import express, { Application } from "express";
     post, put and each of the get, post, put and delete requests associated to the actions that can be performed on the
     category table table.
  */
-import categoryRouter from "../routes/categoryRouter";
+import categoriesRouter from "../routes/categoriesRouter";
 
 /*
     Spanish: Se importa el archivo connection, ya que este contiene el objeto de coneción a la db (db).
@@ -44,7 +44,11 @@ import categoryRouter from "../routes/categoryRouter";
     English: The connection file is imported, since it contains the connection object to the db (db).
  */
 import db from "../db/connection";
-import typeOfVehicleRouter from "../routes/typeOfVehicleRouter";
+import typeOfVehicleRouter from "../routes/typeOfVehiclesRouter";
+import subCategoriesRouter from "../routes/subCategoriesRouter";
+
+import categories from "./Categories";
+import {Categories} from "./Associations";
 
 /*
     Spanish: Creamos una clase llamada Server, ya que es una forma de organizar el código asociado al servidor de forma
@@ -81,6 +85,7 @@ class Server {
     private apiPaths = {
         categories : '/api/categories',
         typeOfVehicles : '/api/typeOfVehicles',
+        subCategories : '/api/subCategories'
     };
     
     constructor() {
@@ -129,6 +134,8 @@ class Server {
         try {
             await db.authenticate();
             await db.sync();
+            // @ts-ignore
+            await Promise.all([Categories.bulkCreate(categories)]);
             console.log('Successful database connection');
         }catch (e){
             console.log(e);
@@ -169,8 +176,9 @@ class Server {
         English: Method is used to link and record each of the paths associated with the corresponding files.
      */
     routes () {
-        this.app.use( this.apiPaths.categories, categoryRouter );
+        this.app.use( this.apiPaths.categories, categoriesRouter );
         this.app.use( this.apiPaths.typeOfVehicles, typeOfVehicleRouter );
+        this.app.use( this.apiPaths.subCategories, subCategoriesRouter );
     }
 
 }

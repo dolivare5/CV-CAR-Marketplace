@@ -14,43 +14,46 @@ const sequelize_1 = require("sequelize");
  */
 const connection_1 = __importDefault(require("../db/connection"));
 /*
-    Spanish: A continuación se crea un modelo para crear, modificar, leer y eliminar registros de la tabla de Tipos de
-    Vehículos. Es importante tener en cuenta que esto es un objeto y que se refleja en la base de datos en el momento
-    en el que se sincroniza la configuración. En cuanto a los registros que se almacenen a través de este modelo contienen
-    información sobre los diferentes tipos de vehículos asociados al sistema de venta (Marketplace).
+    Spanish: A continuación se crea un modelo para crear, modificar, leer y eliminar registros de la tabla de Categoría.
+    Es importante tener en cuenta que esto es un objeto y que se refleja en la base de datos en el momento en el que se
+    sincroniza la configuración. En cuanto a los registros que se almacenen a través de este modelo contienen
+    información sobre las categorías de los diferentes vehículos asociados al sistema de venta (Marketplace).
     
-    English: A template for creating, modifying, reading and deleting records from the Vehicle Types table is created
-    below. It is important to note that this is an object and that it is reflected in the database at the time the
-    configuration is synchronized configuration is synchronized. As for the records that are stored through this model,
-    they contain information about the different types of vehicles associated with the vehicle information about the
-    different types of vehicles associated to the sales system (Marketplace).
+    English: A template is then created to create, modify, read and delete records from the Categories table.
+    It is important to note that this is an object and that it is reflected in the database at the moment when the
+    the configuration is synchronized. As for the records that are stored through this model, they contain information
+    about the categories of the different categories. contain information about the categories of the different
+    vehicles associated to the sales system (Marketplace).
  */
-const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
+class Categories extends sequelize_1.Model {
+}
+// @ts-ignore
+Categories.init({
     /*
-        Spanish: El campo TypVeh_Id hace referencia al identificador único de cada tipo de vehículo registrado en
+        Spanish: El campo Cat_Id hace referencia al identificador único de cada registro o categoría registrada en
         la base de datos. Adicional a esto, este campo es llave primaria, auto incremental, no se aceptan valores nulos,
         el identificador se genera automáticamente y es de typo SMALLINT, ya que es suficientes para la cantidad de
         registros a insertar y de esta forma se optimiza la base de datos.
         
-        English: The TypVeh_Id field refers to the unique identifier of each vehicle type registered in the database.
-        the database. In addition to this, this field is a primary key, auto incremental, null values are not accepted,
+        English: The Cat_Id field refers to the unique identifier of each record or category registered in the database.
+        the database. In addition, this field is a primary key, auto incremental, null values are not accepted,
         the identifier is generated automatically and is of SMALLINT type, since it is sufficient for the number of records to be
         records to be inserted, thus optimizing the database.
      */
-    TypVeh_Id: {
+    Cat_Id: {
         type: sequelize_1.DataTypes.SMALLINT,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
     /*
-        Spanish: En el campo o columna TypVeh_Name se almacena el nombre del tipo de vehículo. El nombre es de typo String
+        Spanish: En el campo o columna Cat_Name se almacena el nombre de la categoría. El nombre es de typo String
         (VARCHAR), único y no se aceptan valores nulos en este campo.
         
-        English: In the field or column TypVeh_Name the name of the vehicle type is stored. The name is a String type
+        English: The Cat_Name field or column stores the name of the category. The name is a String type
         (VARCHAR), unique and null values are not accepted in this field.
      */
-    TypVeh_Name: {
+    Cat_Name: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
         unique: true
@@ -62,16 +65,16 @@ const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
         English: English: The Cat_Description field stores a brief description of the category if the user wants to add it.
         want to add it. This field is optional and is of String type.
      */
-    TypVeh_Description: {
+    Cat_Description: {
         type: sequelize_1.DataTypes.STRING,
         defaultValue: ''
     },
     /*
-        Spanish: El campo TypVeh_Status almacena el estado de un tipo de vehículo. Este campo es opcional y es de tipo Smallint.
+        Spanish: El campo Cat_Status almacena el estado de una categoría. Este campo es opcional y es de tipo Smallint.
         
         English: English: The Cat_Status field stores the status of a category. This field is optional and is of type Smallint
      */
-    TypVeh_Status: {
+    Cat_Status: {
         type: sequelize_1.DataTypes.SMALLINT,
         defaultValue: 1
     }
@@ -83,11 +86,13 @@ const TypeOfVehicle = connection_1.default.define('Type_Of_Vehicle', {
        English: The timestamps property is added with the value of false so that the creation and update date columns
        are not added creation and update date columns are not added.
     */
-    timestamps: false
+    timestamps: false,
+    sequelize: connection_1.default,
+    modelName: 'Categories'
 });
 /*
-    Spanish: Finalmente, se exporta el modelo de TypeOfVehicles para que se pueda utilizar en otras partes del proyecto.
-    English: Finally, the TypeOfVehicles model is exported so that it can be used in other parts of the project.
+    Spanish: Finalmente, se exporta el modelo de Categories para que se pueda utilizar en otras partes del proyecto.
+    English: Finally, the Categories model is exported so that it can be used in other parts of the project.
 */
-exports.default = TypeOfVehicle;
-//# sourceMappingURL=TypeOfVehicles.js.map
+exports.default = Categories;
+//# sourceMappingURL=Categories.js.map

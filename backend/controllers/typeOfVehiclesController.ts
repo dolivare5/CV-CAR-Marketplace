@@ -6,7 +6,7 @@ import {Request, Response} from "express";
 import {check, validationResult} from 'express-validator';
 import {QueryTypes} from "sequelize";
 import db from "../db/connection";
-import TypeOfVehicle from "../models/TypeOfVehicle";
+import TypeOfVehicles from "../models/TypeOfVehicles";
 
 //----------------------------------------------------------------------------------------------- //
 
@@ -23,13 +23,13 @@ const getTypesVehicles = async (_req: Request, res: Response) => {
             Spanish: Se realiza una consulta à la base de datos para extraer los tipos de vehículos registrados.
             English: A database query is performed to extract the types of vehicles registered.
         */
-        const typeOfVehicles = await TypeOfVehicle.findAll({
+        const typeOfVehicles = await TypeOfVehicles.findAll({
             attributes:[ 'TypVeh_Name', 'TypVeh_Description'],
             where: {TypVeh_Status: 1}
         });
         
         if(!typeOfVehicles){
-            res.status(200).send({ errores: [ { msg: 'No hay tipos de vehículos registrados en el sistema'} ]});
+            res.status(200).send({ errors: [ { msg: 'No hay tipos de vehículos registrados en el sistema'} ]});
         }
         /*
             Spanish: Finalmente retorno la información de los tipos de vehículos registrados.
@@ -83,10 +83,10 @@ const getTypeVehicle  = async (req: Request, res: Response) => {
             English: A query is made to the database to extract the type of vehicle registered in the id received.
             registered in the id being received.
         */
-        const typeOfVehicle = await TypeOfVehicle.findByPk(TypVeh_Id);
+        const typeOfVehicle = await TypeOfVehicles.findByPk(TypVeh_Id);
     
         if(!typeOfVehicle){
-            res.status(200).send({ errores: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo.  '} ]});
+            res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo.  '} ]});
         }
         /*
             Spanish: Finalmente retorno la información del tipo de vehículo registrado.
@@ -155,7 +155,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
             Spanish: Se comprueba si existe o no una tipo de vehículo con el nombre que se recibe.
             English: It is checked whether or not there is a vehicle type with the name received.
         */
-        const existTypeVehicle = await TypeOfVehicle.findOne({
+        const existTypeVehicle = await TypeOfVehicles.findOne({
             where: {
                 TypVeh_Name: body.TypVeh_Name
             }
@@ -167,7 +167,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         */
         if (existTypeVehicle) {
             return res.status(400).json({
-                errores: [
+                errors: [
                     {
                         msg: "El tipo de vehículo ingresado ya se encuentra registrado"
                     }
@@ -177,12 +177,12 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         
         /*
             Spanish: Si no existe un tipo de vehículo que sea igual al ingresado se procede a crear un objeto de tipo
-            TypeOfVehicle con la información que se recibe.
+            TypeOfVehicles con la información que se recibe.
             English: If there is no vehicle type equal to the one entered, we proceed to create an object of type
-            TypeOfVehicle with the information received.
+            TypeOfVehicles with the information received.
         */
         // @ts-ignore
-        const typeOfVehicle = new TypeOfVehicle(body);
+        const typeOfVehicle = new TypeOfVehicles(body);
         /*
             Spanish: Una vez se ha creado el objeto, se procede a guardar la información de dicho objeto à la db.
         
@@ -196,7 +196,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         // @ts-ignore
         const { TypVeh_Name, TypVeh_Description} = typeOfVehicle;
         res.status(200).send({
-            errores: [
+            response: [
                 {
                     msg: "Tipo de Vehículo registrado correctamente.",
                     typeOfVehicle : {
@@ -242,9 +242,9 @@ const putTypeVehicle = async (req: Request, res: Response) => {
             Spanish: Se consulta en la base de datos para verificar si existe o no el id que se recibe.
             English: The database is queried to verify whether the received id exists.
         */
-        const typeVehicle = await TypeOfVehicle.findByPk(TypVeh_Id);
+        const typeVehicle = await TypeOfVehicles.findByPk(TypVeh_Id);
         if(!typeVehicle){
-            return res.json({ errores: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo. '} ]});
+            return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo. '} ]});
         }
     
         /*
@@ -290,7 +290,7 @@ const putTypeVehicle = async (req: Request, res: Response) => {
             name. Otherwise, the registration will proceed.
         */
         if (existTypeVehicleRepeated.length >0){
-            return res.status(200).send({ errores: [ { msg: 'Lo sentimos, el tipo de vehículo ingresado ya se encuentra registrado'}]});
+            return res.status(200).send({ errors: [ { msg: 'Lo sentimos, el tipo de vehículo ingresado ya se encuentra registrado'}]});
         }
         
         /*
