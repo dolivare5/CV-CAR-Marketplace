@@ -935,7 +935,7 @@ h6 {
 p {
   font-size: 1.4rem;
   line-height: 1.6em;
-  color: #fff;
+  color: #000;
 }
 
 p span {
@@ -16445,6 +16445,10 @@ textarea.form-control {
 
 .ps-footer {
   padding-top: 70px;
+}
+
+.ps-form__footer-social {
+  color: #fff
 }
 
 .ps-footer__widgets {
