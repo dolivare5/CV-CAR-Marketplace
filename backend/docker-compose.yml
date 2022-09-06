@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+
+    postgres:
+        image: postgres
+        restart: always
+        ports:
+            - "5452:5442"
+        environment:
+            DATABASE_HOST : "localhost"
+            POSTGRES_USER : "ideasIIID"
+            POSTGRES_PASSWORD: "2&4e^Su2Up!b9ad"
+            POSTGRES_DB : "cvcarmarketplace"
+
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "ideasIIID@gmail.com"
+            PGADMIN_DEFAULT_PASSWORD: "S1pf5oHG4#H5"
+        ports:
+            - "80:80"
+        depends_on:
+            - postgres
