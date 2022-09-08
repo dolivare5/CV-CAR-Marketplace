@@ -1,46 +1,36 @@
-/*
-    Importando el Router desde el módulo express.
-    Importing the Router from the express module.
-*/
+/* Importing the Router class from the express module. */
+/* Importación de la clase de enrutador desde el módulo express. */
 import { Router } from "express";
-/*
-    Importando las funciones desde el archivo categoriesController.ts.
-    Importing the functions from the categoriesController.ts file.
-*/
+
+/* Importing the functions from the categoriesController.ts file. */
+/* Importando las funciones desde el archivo categoryController.ts. */
 import {getCategories, getCategory, postCategory, putCategory} from "../controllers/categoriesController";
 
-/*
-    Creando una nueva instancia de la clase Router.
-    Creating a new instance of the Router class.
-*/
+/* Creating a new instance of the Router class. */
+/* Creando una nueva instancia de la clase Router. */
 const categoriesRouter = Router();
 
-/*
-    Creando una ruta para la función getCategories.
-    Creating a path for the getCategories function.
-*/
+
+/* Creation of a route to obtain the data of the categories registered in the system */
+/* Creación de una ruta que tiene como objetivo obtener los datos de las categorías registradas en el sistema */
 categoriesRouter.get('/', getCategories);
 
-/*
-    Creando una ruta para la función getCategory.
-    Creating a path for the getCategory function.
-*/
+
+/* Creation of a path to obtain the data of a Category registered in the system */
+/* Creación de una ruta que tiene como objetivo obtener los datos de una Categoría registrada en el sistema */
 categoriesRouter.get('/:Cat_Id', getCategory);
 
-/*
-    Creando una ruta para la función postCategory.
-    Creating a path for the postCategory function.
-*/
+
+/* Creation of a path that aims to register a new category in the system */
+/* Creación de una ruta que tiene como objetivo registrar una nueva categoría el sistema */
 categoriesRouter.post('/createCategory', postCategory);
 
-/*
-    Creando una ruta para la función putCategory.
-    Creating a path for the putCategory function.
-*/
+
+/* Creation of a path that aims to update the data of the categories registered in the system */
+/* Creación de una ruta que tiene como objetivo actualizar los datos de las categoría registrada en el sistema */
 categoriesRouter.put('/updateCategory/:Cat_Id', putCategory);
 
-/*
-    Exportando el objeto categoriesRouter.
-    Exporting the categoriesRouter object.
-*/
+
+/* Exporting the categoriesRouter object. */
+/* Exportando el objeto enrutador de categorías. */
 export default categoriesRouter;

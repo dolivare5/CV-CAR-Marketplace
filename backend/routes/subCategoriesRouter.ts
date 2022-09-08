@@ -1,48 +1,31 @@
-/*
-    Importando el Router desde el módulo express.
-    Importing the Router from the express module.
-*/
+/* Importing the Router class from the express module. */
+/* Importación de la clase de enrutador desde el módulo express. */
 import { Router } from "express";
 
-/*
-    Importando las funciones desde el archivo subcategoriesController.ts.
-    Importing the functions from the subCategoryController.ts file.
-*/
+/* Importing the functions from the subcategoriesController.ts file. */
+/* Importando las funciones desde el archivo subcategoriesController.ts. */
 import { getSubCategories, getSubCategory, postSubCategory, putSubCategory } from "../controllers/subcategoriesController";
 
-
-/*
-    Creando una nueva instancia de la clase Router.
-    Creating a new instance of the Router class.
-*/
+/* Creating a new instance of the Router class. */
+/* Creando una nueva instancia de la clase Router. */
 const subCategoriesRouter = Router();
 
-/*
-    Creando una ruta para la función getSubCategories.
-    Creating a path for the getSubCategories function.
-*/
+/* Creation of a path that aims to obtain all the subcategories registered in the system */
+/* Creación de una ruta que tiene como objetivo obtener todas las subcategorías registradas en el sistema */
 subCategoriesRouter.get('/', getSubCategories);
 
-/*
-    Creando una ruta para la función getSubCategory.
-    Creating a path for the getSubCategory function.
-*/
+/* Creation of a path that aims to obtain the data of a subcategory */
+/* Creación de una ruta que tiene como objetivo obtener los datos de una subcategoría */
 subCategoriesRouter.get('/:SubCat_Id', getSubCategory);
 
-/*
-    Creando una ruta para la función postSubCategory.
-    Creating a path for the postSubCategory function.
-*/
+/* Creation of a route that aims to create a new subcategory */
+/* Creación de una ruta que tiene como objetivo crear una nueva subcategoría */
 subCategoriesRouter.post('/createSubCategory', postSubCategory);
 
-/*
-    Creando una ruta para la función putSubCategory.
-    Creating a path for the putSubCategory function.
-*/
+/* Creation of a path that aims to use the data of a subcategory */
+/* Creación de una ruta que tiene como objetivo actualizar los datos de una subcategoría */
 subCategoriesRouter.put('/updateSubCategory/:Cat_Id', putSubCategory);
 
-/*
-    Exportando el objeto categoriesRouter.
-    Exporting the categoriesRouter object.
-*/
+/* Exporting the subCategoriesRouter object. */
+/* Exportando el objeto subCategoriesRouter. */
 export default subCategoriesRouter;

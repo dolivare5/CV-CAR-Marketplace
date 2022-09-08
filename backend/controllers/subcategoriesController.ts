@@ -1,72 +1,56 @@
-/*
-    Importación de las interfaces de Solicitud y Respuesta desde el módulo express.
-    Import of the Request and Response interfaces from the express module.
-*/
+
+/* Importing the Request and Response interfaces from the express module. */
+/* Importación de las interfaces de Solicitud y Respuesta desde el módulo express. */
 import {Request, Response} from "express";
 
-/*
-    El código siguiente está importando las funciones check y validationResult del paquete express-validator.
-    The following code is importing the functions check and validationResult from the express-validator package.
-*/
+/* The next code is importing the check and validationResult functions from the express-validator package. */
+/* El código siguiente está importando las funciones check y validationResult del paquete express-validator. */
 import {check, validationResult} from 'express-validator';
 
-
-/*
-    Importación de QueryTypes desde el paquete Sequelize.
-    QueryTypes import from the Sequelize package.
-*/
+/* Importing the QueryTypes from the sequelize package. */
+/* Importación de QueryTypes desde el paquete Sequelize. */
 import {QueryTypes} from "sequelize";
 
-
-/*
-    Importando el archivo connection.ts desde la carpeta db.
-    Importing the connection.ts file from the db folder.
-*/
+/* Importing the connection.ts file from the db folder. */
+/* Importando el archivo connection.ts desde la carpeta db. */
 import db from "../db/connection";
 
-
-/*
-    Importación del modelo Subcategorías desde la carpeta de modelos.
-    Subcategories model import from the model folder.
-*/
+/* Importing the Subcategories model from the models folder. */
+/* Importación del modelo Subcategorías desde la carpeta de modelos. */
 import Subcategories from "../models/Subcategories";
-
-//----------------------------------------------------------------------------------------------- //
+import SubCategories from "../models/Subcategories";
 
 /**
  * Encuentra todas las subcategorías que tienen un estado de 1 y las envía al cliente
  * @param {Request} _req - Solicitud: Esta es la solicitud que el cliente envía al servidor.
  * @param {Response} res - Respuesta: Esta es la respuesta que se enviará al cliente.
  * @returns una respuesta al cliente con las subcategorías registradas en el sistema.
- *
- * Finds all the subcategories that have a status of 1 and sends them to the client
+ */
+ /**
+ *  Finds all the subcategories that have a status of 1 and sends them to the client
  * @param {Request} _req - Request: This is the request that the client sends to the server.
  * @param {Response} res - Response: This is the response that will be sent to the client.
  * @returns a response to the client with the subcategories registered in the system.
  */
 const getSubCategories = async (_req: Request, res: Response) => {
     try{
-        /*
-            Encontrar todas las subcategorías que tienen un estado de 1.
-            Find all subcategories that have a status of 1.
-        */
-        const subCategories = await Subcategories.findAll({
+        
+        /* Finding all the subcategories that have a status of 1. */
+        /* Encontrar todas las subcategorías que tienen un estado de 1. */
+        const subCategories:Subcategories[] = await Subcategories.findAll({
             attributes:[ 'SubCat_Name', 'SubCat_Description'],
             where: {SubCat_Status: 1}
         });
         
-        /*
-            Comprobando si hay subcategorías en la base de datos. Si no hay ninguno, enviará un mensaje al usuario.
-            Checking if there are subcategories in the database. If there are none, it will send a message to the user.
-        */
+        
+        /* Checking if there are any subcategories in the database. If there are none, it will send a message to the user. */
+        /* Comprobando si hay subcategorías en la base de datos. Si no hay ninguno, enviará un mensaje al usuario. */
         if(!subCategories){
             res.status(200).send({ errors: [ { msg: 'No hay subcategorías registradas en el sistema'} ]});
         }
         
-        /*
-            Envío de respuesta al cliente con las subcategorías registradas en el sistema.
-            Sending a response to the client with the subcategories registered in the system.
-         */
+        /* Sending a response to the client with the subcategories registered in the system.*/
+        /* Envío de respuesta al cliente con las subcategorías registradas en el sistema. */
         return res.status(200).send({
             response: [
                 {
@@ -79,19 +63,19 @@ const getSubCategories = async (_req: Request, res: Response) => {
     }catch (e) {
         console.log(e);
         
+        /* Sending a 500 status code and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
-
-//----------------------------------------------------------------------------------------------- //
-
-
-
-/*
-    Spanish: Método retorna los datos de una categoría en especifico.
-    English: Method returns the data of a specific category.
+/**
+ * It receives a request from the client, searches for a subcategory by its main key, if it finds it, it sends a response with the name and description of the subcategory.
+ * with the name and description of the subcategory, if not found, it sends a response with a message saying that the subcategory does not exist.
+ * subcategory does not exist
+ * @param {Request} req - Request: this parameter is the request that the client sends to the server.
+ * @param {Response} res - Response: This is the response that the server will send to the client.
+ * @returns A subcategory is being returned.
  */
 /**
  * Recibe una solicitud del cliente, busca una subcategoría por su clave principal, si la encuentra, envía una respuesta
@@ -100,51 +84,33 @@ const getSubCategories = async (_req: Request, res: Response) => {
  * @param {Request} req - Solicitud: este parámetro es la solicitud que el cliente envía al servidor.
  * @param {Response} res - Respuesta: Esta es la respuesta que el servidor enviará al cliente.
  * @returns Se está devolviendo una subcategoría.
- *
- * It receives a request from the client, searches for a subcategory by its main key, if it finds it, it sends a response with the name and description of the subcategory.
- * with the name and description of the subcategory, if not found, it sends a response with a message saying that the subcategory does not exist.
- * subcategory does not exist
- * @param {Request} req - Request: this parameter is the request that the client sends to the server.
- * @param {Response} res - Response: This is the response that the server will send to the client.
- * @returns A subcategory is being returned.
  */
 const getSubCategory = async (req: Request, res: Response) => {
     try{
-        /*
-            Desestructuración del SubCat_Id del objeto req.params.
-            Destructuring of the SubCat_Id of the req.params object.
-        */
+        /* Destructuring of the SubCat_Id of the req.params object. */
+        /* Desestructuración del SubCat_Id del objeto req.params. */
         const { SubCat_Id} = req.params;
-        /*
-            Encontrar una subcategoría por su clave principal.
-            Find a subcategory by its main key.
-         */
-        const subCategory = await Subcategories.findByPk(SubCat_Id);
+        
+        /* Finding a subcategory by its primary key. */
+        /* Encontrar una subcategoría por su clave principal. */
+        const subCategory:Subcategories|null = await Subcategories.findByPk(SubCat_Id);
     
-        /*
-            Comprobando si la subcategoría no es nula, si no es nula, enviará una respuesta con un estado de 200 y un
-            mensaje.
-            
-            Checking if the subcategory is not null, if it is not null, it will send a response with a status of 200 and a
-            message.
-        */
+        
+        /* Checking if the subCategory is empty or not. If it is empty, it will send a response with a status of 200 and an
+        error message. */
+        /* Comprobando si la subcategoría está vacía o no. Si está vacío, enviará una respuesta con un estado de 200 y un
+        mensaje de error. */
         if(!subCategory){
             res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna subcategoría  '} ]});
         }
-        
-        /*
-            Destrucción del objeto SubCategory para extraer el nombre y la descripción de la subcategoría.
-            Destruction of the SubCategory object to extract the name and description of the subcategory.
-        */
+    
+        /* Destructuring of the SubCategory object to extract the name and description of the subcategory. */
+        /* Desestructuración del objeto SubCategory para extraer el nombre y la descripción de la subcategoría. */
         // @ts-ignore
         const { SubCat_Name, SubCat_Description} = subCategory;
         
-        /* El código anterior es una respuesta del servidor al cliente con la información de la subcategoría
-           solicitada.
-           
-           The above code is a response from the server to the client with the requested subcategory information.
-           requested.
-        */
+        /* The above code is a response from the server to the client with the requested subcategory information requested. */
+        /* El código anterior es una respuesta del servidor al cliente con la información de la subcategoría solicitada. */
         res.status(200).send({
             response: [
                 {
@@ -170,19 +136,7 @@ const getSubCategory = async (req: Request, res: Response) => {
     
 }
 
-
-//----------------------------------------------------------------------------------------------- //
-
-
 /**
-     * La función valida los campos obligatorios de la tabla de subcategorías, verifica si la subcategoría ya existe en la base
-     * de datos, crea un nuevo objeto o instancia en función de la subcategoría del modelo de subcategoría, guarda el objeto de
-     * la subcategoría en la base de datos y, finalmente, si no hay ningún problema. , la información se devuelve a través de
-     * un objeto o la información de instancia se devuelve a través de un objeto json
-     * @param {Request} req - Solicitud: Este es el objeto de solicitud que contiene los datos enviados por el cliente.
-     * @param {Response} res - Respuesta: el objeto de respuesta que se enviará al cliente.
-     * @returns Una función que recibe dos parámetros, el primero es la solicitud y el segundo es la respuesta.
- 
      * The function validates the required fields of the subcategory table, checks if the subcategory already exists in
      * the database, creates a new object or instance based on the subcategory from the subcategory template, saves the
      * subcategory object in the subcategory table, and database, creates a new object or instance based on the
@@ -194,56 +148,51 @@ const getSubCategory = async (req: Request, res: Response) => {
      * @param {Response} res - Response: the response object to be sent to the client.
      * @returns A function that receives two parameters, the first is the request and the second is the response.
  */
+/**
+ * La función valida los campos obligatorios de la tabla de subcategorías, verifica si la subcategoría ya existe en la base
+ * de datos, crea un nuevo objeto o instancia en función de la subcategoría del modelo de subcategoría, guarda el objeto de
+ * la subcategoría en la base de datos y, finalmente, si no hay ningún problema. , la información se devuelve a través de
+ * un objeto o la información de instancia se devuelve a través de un objeto json
+ * @param {Request} req - Solicitud: Este es el objeto de solicitud que contiene los datos enviados por el cliente.
+ * @param {Response} res - Respuesta: el objeto de respuesta que se enviará al cliente.
+ * @returns Una función que recibe dos parámetros, el primero es la solicitud y el segundo es la respuesta.
+ */
 const postSubCategory = async (req: Request, res: Response) => {
-    /*
-        Spanish: Se extraen los datos que vienen en el body a través del request.
-        English: The data that comes in the body is extracted through the request.
-    */
+    /* The data that comes in the body is extracted through the request. */
+    /* Se extraen los datos que vienen en el body a través del request. */
     const {body} = req;
     
-    /*
-        Se valida los campos obligatorios de la tabla de subcategorías, verificando si la
-        subcategoría ya existe en la base de datos, creando un nuevo objeto o instancia basada en el modelo de
-        Subcategorías, guardando el objeto de la subcategoría en la base de datos y, finalmente, si no hay problema, la
-        información se devuelve a través de un objeto json.
-        
-        The validates the required fields of the subcategories table, verifying if the subcategory already exists in the
-        database, creating a new object or instance based on the subcategory model subcategory, saving the subcategory
-        object in the database, and finally, if there is no problem,the information is returned through an object or
-        instance information is returned through a json object.
-    */
+    /* The next code is validating the mandatory fields of the subcategories table, checking if the subcategory already
+    exists in the database, creating a new object or instance based on the Subcategories model, saving the subcategory
+    object in the database, and finally, if there is no problem, the information is returned through a json object. */
+    
+    /* El código siguiente está validando los campos obligatorios de la tabla de subcategorías, verificando si la
+    subcategoría ya existe en la base de datos, creando un nuevo objeto o instancia basada en el modelo de
+    Subcategorías, guardando el objeto de la subcategoría en la base de datos y, finalmente, si no hay problema, la
+    información se devuelve a través de un objeto json. */
     try {
-        /*
-            Validación de los campos obligatorios de la tabla subcategorías.
-            Validation of the mandatory fields of the subcategories table.
-        */
-        let result = await validateFieldsSubCategory(req, res);
         
-        /*
-            Comprobando si el resultado está vacío. Si no está vacío, enviará los errores al cliente.
-            Checking if the result is empty. If it is not empty, it will send the errors to the client.
-        */
-        if (!result.isEmpty()) {
-            res.status(200).send({errores: result.array()});
+        /* Validating the fields of the subcategory. */
+        /* Validación de los campos de la subcategoría. */
+        const resultsValidations:Object[] = await validateFieldsSubCategory(req, res);
+        
+        /* Checking if the result is empty. If it is not empty, it will send the errors to the client. */
+        /* Comprobando si el resultado está vacío. Si no está vacío, enviará los errores al cliente. */
+        if (resultsValidations.length > 0) {
+            res.status(200).send({errores: resultsValidations});
         }
         
-        /*
-            Comprobando si la subcategoría ya existe en la base de datos.
-            Checking if the subcategory already exists in the database.
-        */
-        const existSubCategory = await Subcategories.findOne({
+        
+        /* Checking if the subcategory already exists in the database. */
+        /* Comprobando si la subcategoría ya existe en la base de datos. */
+        const existSubCategory:Subcategories|null = await Subcategories.findOne({
             where: {
                 SubCat_Name: body.SubCat_Name
             }
         });
-    
-        /*
-            Devuelve un código de estado 400 y un objeto json con una serie de errores en caso de que exista la
-            subcategoría ingresada.
-            
-            Returns a status code 400 and a json object with a series of errors in case the entered subcategory exists.
-            entered subcategory exists.
-        */
+        
+        /* The next code is checking if the subcategory already exists in the database. */
+        /* El código siguiente verifica si la subcategoría ya existe en la base de datos. */
         if (existSubCategory) {
             return res.status(400).json({
                 errors: [
@@ -254,28 +203,21 @@ const postSubCategory = async (req: Request, res: Response) => {
             });
         }
     
-        /*
-            Creando una nuevo objeto o instancia en base al modelo de Subcategorías.
-            Creating a new object or instance based on the Subcategories model.
-        */
-        // @ts-ignore
-        const subCategory = new Subcategories(body);
+        /* Creating a new instance of the Subcategories class. */
+        /* Creando una nueva instancia de la clase Subcategorías. */
+        const subCategory:Subcategories = new Subcategories(body);
         
-        /*
-            Guardando el objeto de subcategoría en la base de datos.
-            Saving the subcategory object in the database.
-        */
+        /* Saving the subcategory in the database. */
+        /* Guardando la subcategoría en la base de datos. */
         await subCategory.save();
-        /*
-            Finalmente, si no hay ningún problema se retorna la información a través de un objeto json.
-            Finally, if there is no problem, the information is returned through a json object.
-        */
+    
+        /* Finally, if there is no problem, the information is returned through a json object.*/
+        /* Finalmente, si no hay ningún problema se retorna la información a través de un objeto json.*/
         // @ts-ignore
         const { SubCat_Name, SubCat_Description} = subCategory;
-        /*
-            Envío de respuesta al cliente con los datos de la subcategoría registrada.
-            Sending a response to the client with the data of the registered subcategory.
-        */
+        
+        /* Sending a response to the client with the data of the registered subcategory. */
+        /* Envío de respuesta al cliente con los datos de la subcategoría registrada. */
         res.status(200).send({
             response: [
                 {
@@ -296,113 +238,86 @@ const postSubCategory = async (req: Request, res: Response) => {
 }
 
 
-
-//----------------------------------------------------------------------------------------------- //
-
-
-
-
 /**
-     * Actualiza una subcategoría en la base de datos.
-     * @param {Request} req - Solicitud: Es la solicitud que el cliente envía al servidor.
-     * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
-     * @returns la información de la subcategoría registrada.
-     *
      * Updates a subcategory in the database.
      * @param {Request} req - Request: It is the request that the client sends to the server.
      * @param {Response} res - Response: It is the response that the server will send to the client.
      * @returns the information of the registered subcategory.
  */
+/**
+     * Actualiza una subcategoría en la base de datos.
+     * @param {Request} req - Solicitud: Es la solicitud que el cliente envía al servidor.
+     * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
+     * @returns la información de la subcategoría registrada.
+ */
 const putSubCategory = async (req: Request, res: Response) => {
-    /*
-        Actualiza una subcategoría en la base de datos.
-        Updates a subcategory in the database.
-    */
+    
+    /* The next code is updating a subcategory in the database. */
+    /* El código siguiente está actualizando una subcategoría en la base de datos. */
     try {
-        /*
-            Se extrae el id que se recibe en la request.
-            The id received in the request is extracted.
-        */
+        /* The id received in the request is extracted. */
+        /* Se extrae el id que se recibe en la request. */
         const {SubCat_Id} = req.params;
         
-        /*
-            Encontrar la subcategoría por su clave principal.
-            Find the subcategory by its primary key.
-        */
-        const subCategory = await Subcategories.findByPk(SubCat_Id);
         
-        /*
-            Al verificar si la subcategoría no es nula, si no es nula, devolverá un mensaje de error.
-            When checking if the subcategory is not null, if it is not null, it will return an error message.
-         */
+        /* Find a subcategory by its main key in the database. */
+        /* Encontrar una subcategoría por su clave principal en la base de datos. */
+        const subCategory:SubCategories|null = await Subcategories.findByPk(SubCat_Id);
+        
+        
+        /* Checking if the subCategory is not null, if it is not null, it will return an error message. */
+        /* Al verificar si la subcategoría no es nula, si no es nula, devolverá un mensaje de error. */
         if(!subCategory){
             return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ninguna subcategoría  '} ]});
         }
     
-        /*
-            Validación de los campos obligatorios de la tabla subcategorías.
-            Validation of the mandatory fields of the subcategories table.
-        */
-        let result = await validateFieldsSubCategory(req, res);
+        
+        /* Validating the fields of the subcategory. */
+        /* Validación de los campos de la subcategoría. */
+        let resultsValidations:Object[] = await validateFieldsSubCategory(req, res);
         
         
-        /*
-            Valida que los datos que se envían al servidor no presenten ningún error.
-            Validates that the data sent to the server does not present any error.
-        */
-        if (!result.isEmpty()) {
-            /*
-                De haber un error, retorno un arreglo json con cada uno de las validaciones que no se cumplieron.
-                If there is an error, return a json array with each of the validations that were not fulfilled.
-            */
-            return res.json({errores: result.array()});
+        
+        /* Validating the data that is being sent to the server. */
+        /* Validación de los datos que se envían al servidor. */
+        if (resultsValidations.length>0) {
+            /* If there is an error, return a json array with each of the validations that were not fulfilled. */
+            /* De haber un error, retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
+            return res.json({errores: resultsValidations});
         }
+        
+        /* If there are no problems with the previous validations, we proceed to extract each of the data to be
+        modified in the database to be modified in the database.*/
     
-        /*
-            Si noy problemas con las validaciones anteriores, se procede a extraer cada uno de los datos que se
-            modificaran en la base de datos.
-            If there are no problems with the previous validations, we proceed to extract each of the data to be
-            modified in the database to be modified in the database.
-        */
+        /* Si noy problemas con las validaciones anteriores, se procede a extraer cada uno de los datos que se
+        modificaran en la base de datos. */
         const { SubCat_Name, SubCat_Description, SubCat_Status  } = req.body;
         
-        /*
-            Comprobando si existe una subcategoría con el mismo nombre que la que se está editando.
-            Checking if there is a subcategory with the same name as the one being edited.
-        */
-        const existSubCategoryRepeated = await db.query(
+        /* Checking if there is a subcategory with the same name as the one being edited. */
+        /* Comprobando si existe una subcategoría con el mismo nombre que la que se está editando. */
+        const existSubCategoryRepeated:Object[] = await db.query(
             `SELECT * FROM "Subcategories" sc WHERE "SubCat_Id" != ${SubCat_Id} AND "SubCat_Name" = '${SubCat_Name}'`,
             { type: QueryTypes.SELECT }
         )
-        /*
-            Si existe por lo menos una categoría registrada no se permite actualizar el registro con
-            dicho nombre. Caso contrario, se procede con el registro.
-            
-            If there is at least one registered category, it is not allowed to update the record with that name.
-            name. Otherwise, proceed with the registration.
-        */
+        
+        
+        /* The next code is checking if the subcategory already exists in the database. */
+        /* El código siguiente verifica si la subcategoría ya existe en la base de datos. */
         if (existSubCategoryRepeated.length >0){
             return res.status(200).send({ errors: [ { msg: 'Lo sentimos, la subcategoría ingresada ya se encuentra registrada'}]});
         }
         
-        /*
-            Se actualiza el objeto de subcategoría con los datos que se reciben en el body.
-            The subcategory object is updated with the data received in the body.
-        */
+        
+        /* Setting the values of the subCategory object. */
+        /* Establece los valores del objeto de subcategoría. */
         subCategory.set({SubCat_Name, SubCat_Description, SubCat_Status});
     
-        /*
-            Una vez actualizar el objeto que guarda la subcategoría ya modificada se procede con editar el
-            registro en la db.
-            Once the object that stores the modified subcategory has been updated, the next step is to edit the
-            record in the db.
-        */
+        /* Saving the subcategory in the database. */
+        /* Guardando la subcategoría en la base de datos. */
         await subCategory.save();
     
-        /*
-            Spanish: Finalmente retorno la información de la subcategoría registrada.
-            English: Finally I return the information of the registered subcategory.
-        */
+        /* Finally, if there is no problem, the information is returned through a json object.*/
+        /* Finalmente, si no hay ningún problema se retorna la información a través de un objeto json.*/
         res.status(200).send({
             response: [
                 {
@@ -420,42 +335,31 @@ const putSubCategory = async (req: Request, res: Response) => {
 }
 
 
-//----------------------------------------------------------------------------------------------- //
-
-
-
 /**
- * Valida que el campo de nombre no esté vacío
- * @param {Request} req - Solicitud: el objeto de la solicitud.
- * @param {Response} _res - Respuesta: Este es el objeto de respuesta que se devolverá al cliente.
- * @returns El resultado de la validación del cuerpo de la solicitud.
- *
- * Validates that the name field is not empty.
- * @param {Request} req - Request: the request object.
- * @param {Response} _res - Response: This is the response object to be returned to the client.
- * @returns The result of the validation of the request body.
+     * Valida que el campo de nombre no esté vacío
+     * @param {Request} req - Solicitud: el objeto de la solicitud.
+     * @param {Response} _res - Respuesta: Este es el objeto de respuesta que se devolverá al cliente.
+     * @returns El resultado de la validación del cuerpo de la solicitud.
+*/
+/**
+     * Validates that the name field is not empty.
+     * @param {Request} req - Request: the request object.
+     * @param {Response} _res - Response: This is the response object to be returned to the client.
+     * @returns The result of the validation of the request body.
  */
 const validateFieldsSubCategory = async (req: Request, _res: Response) => {
     
-    /*
-        Spanish: Validaciones a través de express validators. Entre estas están que no se ingresen datos no validos.
-        Para ello se valida que el campo nombre no este vacío.
-        
-        English: Validations through express validators. Among these are that no invalid data is entered.
-        For this purpose, it is validated that the name field is not empty.
-     */
+    
+    /* Checking if the field is empty or not. */
+    /* Comprobando si el campo está vacío o no. */
     await check('SubCat_Name').notEmpty().withMessage("El nombre de la subcategoría es Obligatorio").run(req);
     
     /* Se retorna el resultado de la validación del cuerpo de la solicitud. */
-    return validationResult(req);
+    /* The result of the validation of the request body is returned. */
+    return validationResult(req).array();
     
 }
-//----------------------------------------------------------------------------------------------- //
 
-
-
-/*
-    Exportando las funciones getSubCategory, getSubCategories, putSubCategory y postSubCategory.
-    Exporting the functions getSubCategory, getSubCategories, putSubCategory and postSubCategory.
-*/
+/* Exporting the functions getSubCategory, getSubCategories, putSubCategory, and postSubCategory. */
+/* Exportando las funciones getSubCategory, getSubCategories, putSubCategory y postSubCategory. */
 export {getSubCategory, getSubCategories, putSubCategory, postSubCategory};

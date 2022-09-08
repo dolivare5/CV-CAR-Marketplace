@@ -1,4 +1,6 @@
 "use strict";
+/* The cors library is used to enable the Cross-Origin Resource Sharing (CORS) to enable cross-origin HTTP requests
+that are initiated from scripts running in the browser. executed in the browser. */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,118 +14,89 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/*
-    Spanish: Se hace uso de la librería cors para habilitar el Intercambio de Recursos de Origen Cruzado (CORS)
-    y con esto habilitar las solicitudes HTTP de origen cruzado que se inician desde secuencias de comandos que se
-    ejecutan en el navegador.
-    
-    English: The cors library is used to enable the Cross-Origin Resource Sharing (CORS)
-    to enable cross-origin HTTP requests that are initiated from scripts running in the browser.
-    executed in the browser.
- */
+/* Se hace uso de la librería cors para habilitar el Intercambio de Recursos de Origen Cruzado (CORS) y con esto
+habilitar las solicitudes HTTP de origen cruzado que se inician desde secuencias de comandos que se ejecutan en el
+navegador. */
 const cors_1 = __importDefault(require("cors"));
-/*
-    Spanish: Se hace uso de Express, ya que Permite crear API y aplicaciones web fácilmente, dado que nos provee de un
-    conjunto de características como manejo de rutas (direccionamiento), archivos estáticos, uso de motor de plantillas,
-    integración con bases de datos, manejo de errores, middlewares entre otras. Es a su véz esencial para el desarrollo
-    de aplicaciones de negocio, en particular para la automatización y la integración de la tecnología.
-    Su enfoque minimalista, su alta escalabilidad, su velocidad y su rendimiento general son solo algunas de las razones
-    por las que decidimos utilizar Expressjs.
-    
-    English: Express is used, since it allows us to create APIs and web applications easily, since it provides us with
-    a set of features such as features such as route management (addressing), static files, use of témplate engine,
-    integration with databases, error handling, middlewares and others, integration with databases, error handling,
-    middlewares among others. It is also essential for business application development, particularly for of business
-    applications, in particular for automation and technology integration, its minimalist approach, high scalability,
-    speed and overall performance are just some of the reasons why we decided to use Express why we decided to use
-    Expressjs.
- */
+/* Express is used, since it allows us to create APIs and web applications easily, since it provides us with
+a set of features such as features such as route management (addressing), static files, use of témplate engine,
+integration with databases, error handling, middlewares and others, integration with databases, error handling,
+middlewares among others. It is also essential for business application development, particularly for of business
+applications, in particular for automation and technology integration, its minimalist approach, high scalability,
+speed and overall performance are just some of the reasons why we decided to use Express why we decided to useExpressjs. */
+/* Se hace uso de Express, ya que Permite crear API y aplicaciones web fácilmente, dado que nos provee de un
+conjunto de características como manejo de rutas (direccionamiento), archivos estáticos, uso de motor de plantillas,
+integración con bases de datos, manejo de errores, middlewares entre otras. Es a su véz esencial para el desarrollo
+de aplicaciones de negocio, en particular para la automatización y la integración de la tecnología.
+Su enfoque minimalista, su alta escalabilidad, su velocidad y su rendimiento general son solo algunas de las razones
+por las que decidimos utilizar Expressjs. */
 const express_1 = __importDefault(require("express"));
-/*
-    Spanish: Se importa el archivo de rutas relacionado a las categorías, en este archivo se encuentran disponibles
-    cada una de las peticiones get, post, put y delete asociadas a las acciones que se pueden realizar sobre la tabla de
-    categorías.
-    
-    English: The file of routes related to the categories is imported, in this file are available each one of the get,
-    post, put and each of the get, post, put and delete requests associated to the actions that can be performed on the
-    category table table.
- */
-const categoriesRouter_1 = __importDefault(require("../routes/categoriesRouter"));
-/*
-    Spanish: Se importa el archivo connection, ya que este contiene el objeto de coneción a la db (db).
-    
-    English: The connection file is imported, since it contains the connection object to the db (db).
- */
+/* The import of the connection object and sequelize configuration to manipulate the database is performed. */
+/* Se realiza la importación del objeto de conexión y configuración de sequelize para manipular la bd. */
 const connection_1 = __importDefault(require("../db/connection"));
+/* Importing the categoriesRouter from the routes folder. */
+/* Importando las categoríasRouter desde la carpeta de rutas. */
+const categoriesRouter_1 = __importDefault(require("../routes/categoriesRouter"));
+/* Importing the typeOfVehiclesRouter from the routes folder. */
+/* Importando el typeOfVehiclesRouter de la carpeta de rutas. */
 const typeOfVehiclesRouter_1 = __importDefault(require("../routes/typeOfVehiclesRouter"));
+/* Importing the subCategoriesRouter from the routes folder. */
+/* Importando el subCategoriesRouter desde la carpeta de rutas. */
 const subCategoriesRouter_1 = __importDefault(require("../routes/subCategoriesRouter"));
+/* Importing the categories from the Categories.ts file. */
+/* Importando las categorías del archivo Categories.ts. */
 const Categories_1 = __importDefault(require("./Categories"));
+/* Importing the Categories model from the Associations.ts file. */
+/* Importando el modelo de Categorías del archivo Associations.ts. */
 const Associations_1 = require("./Associations");
-/*
-    Spanish: Creamos una clase llamada Server, ya que es una forma de organizar el código asociado al servidor de forma
-    entendible con el objetivo de simplificar el funcionamiento de nuestro programa. Además, hay que tener en cuenta que
-    en esta clase se pueden generar objetos de asociados a la conexión hacia el servidor y acceder a métodos como listen,
-    routes entre otros, cada uno con sus características y funciones concretas.
-    
-    English: We create a class called Server, since it is a way of organizing the code associated to the server in an
-    understandable way in order to understandable in order to simplify the operation of our program. In addition, it is
-    necessary to take into account that in this class we can generate objects associated with the connection to the
-    server and access methods such as listen, routes among others, each one with its characteristics and
-    concrete functions.
- */
+/* Importing the categories_TypeOfVehicleRouter from the routes folder. */
+const Categories_TypeOfVehicleRouter_1 = __importDefault(require("../routes/Categories_TypeOfVehicleRouter"));
+/* We create a class called Server, since it is a way of organizing the code associated to the server in an
+understandable way in order to understandable in order to simplify the operation of our program. In addition, it is
+necessary to take into account that in this class we can generate objects associated with the connection to the
+server and access methods such as listen, routes among others, each one with its characteristics and
+concrete functions. */
+/* Creamos una clase llamada Server, ya que es una forma de organizar el código asociado al servidor de forma
+entendible con el objetivo de simplificar el funcionamiento de nuestro programa. Además, hay que tener en cuenta que
+en esta clase se pueden generar objetos de asociados a la conexión hacia el servidor y acceder a métodos como listen,
+routes entre otros, cada uno con sus características y funciones concretas. */
 class Server {
     constructor() {
-        /*
-            Spanish: Objeto privado que registra cada uno de los archivos de la carpeta route como rutas disponibles.
-            
-            English: Private object that records each of the files in the route folder as available routes.
-         */
+        /* Private object that records each of the files in the route folder as available routes. */
+        /* Objeto privado que registra cada uno de los archivos de la carpeta de rutas como rutas disponibles. */
         this.apiPaths = {
             categories: '/api/categories',
             typeOfVehicles: '/api/typeOfVehicles',
-            subCategories: '/api/subCategories'
+            subCategories: '/api/subCategories',
+            categoriesAsTypeOfVehicles: '/api/categoriesAsTypeOfVehicles',
         };
-        /*
-            Spanish: Se inicializa el servidor de express.
-        
-            English: The express server is initialized
-        */
+        /* Initializing the app attribute with the express library. */
+        /* Inicializando el atributo de la aplicación con la biblioteca express. */
         this.app = (0, express_1.default)();
-        /*
-            Spanish: Se inicializa el atributo de port para indicarle el puerto donde se ejecutara el servidor.
-        
-            English:The port attribute is initialized to indicate the port where the server will be executed.
-        */
+        /* The port attribute is initialized to indicate the port where the server will be executed. */
+        /* Se inicializa el atributo de puerto para indicar el puerto donde se ejecutará el servidor. */
         // @ts-ignore
         this.port = parseInt(process.env.PORT_SERVER) || 8000;
-        /*
-            Spanish: Se realiza la conexión la base de datos.
-        
-            English: The database connection is performed.
-        */
+        /* A method that performs the connection and authentication in the database. */
+        /* Un método que realiza la conexión y autenticación en la base de datos. */
         this.dbConnection();
-        /*
-            Spanish: Se habilitan los CORS y la lectura de requests enviados al servidor a través del body en formato JSON.
-        
-            English: CORS and the reading of requests sent to the server through the body in JSON format are enabled.
-        */
+        /* A method that is used to enable the use of CORS and requests to the server. */
+        /* Se utiliza para habilitar el uso de CORS y solicitudes al servidor. */
         this.middlewares();
-        /*
-            Spanish: Se registran cada una de las rutas asociadas al sistema.
-        
-            English: Each of the routes associated with the system are recorded.
-        */
+        /* Used to link and register each of the routes associated with the corresponding files. */
+        /* Se utiliza para vincular y registrar cada una de las rutas asociadas a los archivos correspondientes. */
         this.routes();
     }
-    /*
-        Spanish: Método asíncrono que realiza la conexión y autenticación en la base de datos.
-        
-        English: Asynchronous method that performs the connection and authentication in the database.
-    */
+    /* A method that performs the connection and authentication in the database. */
+    /* Un método que realiza la conexión y autenticación en la base de datos. */
     dbConnection() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                /* Used to authenticate the connection to the database. */
+                /* Se utiliza para autenticar la conexión a la base de datos. */
                 yield connection_1.default.authenticate();
+                /* Used to synchronize the database with the models. */
+                /* Se utiliza para sincronizar la base de datos con los modelos. */
                 yield connection_1.default.sync();
                 // @ts-ignore
                 yield Promise.all([Associations_1.Categories.bulkCreate(Categories_1.default)]);
@@ -134,40 +107,43 @@ class Server {
             }
         });
     }
+    /* A method that is used to enable the use of CORS and requests to the server. */
+    /* Se utiliza para habilitar el uso de CORS y solicitudes al servidor. */
     middlewares() {
-        /*
-            Spanish: Se habilita el uso de CORS Y peticiones al servidor.
-            
-            English: CORS and server requests are enabled.
-        */
+        /* CORS and server requests are enabled. */
+        /* Se habilitan CORS y solicitudes al servidor. */
         this.app.use((0, cors_1.default)());
-        /*
-            Spanish: Se habilita la lectura de peticiones y respuestas en formato json hacia el servidor a través del body.
-            
-            English: The reading of requests and responses in json format to the server through the body is enabled.
-        */
+        /*  The reading of requests and responses in json format to the server through the body is enabled. */
+        /* Se habilita la lectura de solicitudes y respuestas en formato json hacia el servidor a través del body. */
         this.app.use(express_1.default.json());
     }
-    /*
-        Spanish: Método se usa para vincular y escuchar las conexiones en el host y puerto especificados.
-        
-        English: Method is used to bind and listen for connections on specified host and port.
+    /**
+     * The listen function is a method of the App class that creates a server that listens for requests on the port
+     * specified in the constructor
+     */
+    /**
+     * La función de escucha es un método de la clase App que crea un servidor que escucha las solicitudes en el puerto
+     * especificado en el constructor.
      */
     listen() {
         this.app.listen(this.port, () => {
             console.log('Servidor corriendo en el puerto', this.port);
         });
     }
-    /*
-        Spanish: Método se usa para vincular y registrar cada una de las rutas asociadas a los archivos correspondientes.
-        
-        English: Method is used to link and record each of the paths associated with the corresponding files.
+    /**
+     * This function is used to set up the routes for the API
+     */
+    /**
+     * Esta función se utiliza para configurar las rutas para la API
      */
     routes() {
         this.app.use(this.apiPaths.categories, categoriesRouter_1.default);
         this.app.use(this.apiPaths.typeOfVehicles, typeOfVehiclesRouter_1.default);
         this.app.use(this.apiPaths.subCategories, subCategoriesRouter_1.default);
+        this.app.use(this.apiPaths.categoriesAsTypeOfVehicles, Categories_TypeOfVehicleRouter_1.default);
     }
 }
+/* Exporting the Server class to be used in other files. */
+/* Exportación de la clase Servidor para ser utilizada en otros archivos. */
 exports.default = Server;
 //# sourceMappingURL=Server.js.map
