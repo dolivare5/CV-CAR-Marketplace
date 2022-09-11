@@ -1,15 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /* Importing the DataTypes and Model objects from the sequelize module. */
 /* Importación de los objetos DataTypes y Model desde el módulo Sequelize. */
-const sequelize_1 = require("sequelize");
+import { DataTypes, Model } from "sequelize";
 /* The import of the connection object and sequelize configuration to manipulate the database is performed. */
 /* Se realiza la importación del objeto de conexión y configuración de sequelize para manipular la bd. */
-const connection_1 = __importDefault(require("../db/connection"));
-class TypeOfVehicles extends sequelize_1.Model {
+import db from "../db/connection";
+class TypeOfVehicles extends Model {
 }
 /* A template for creating, modifying, reading and deleting records from the Vehicle Types table is created
 below. It is important to note that this is an object and that it is reflected in the database at the time the
@@ -30,7 +25,7 @@ TypeOfVehicles.init({
      el identificador se genera automáticamente y es de typo SMALLINT, ya que es suficientes para la cantidad de
      registros a insertar y de esta forma se optimiza la base de datos. */
     TypVeh_Id: {
-        type: sequelize_1.DataTypes.SMALLINT,
+        type: DataTypes.SMALLINT,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
@@ -40,7 +35,7 @@ TypeOfVehicles.init({
     /* En el campo o columna TypVeh_Name se almacena el nombre del tipo de vehículo. El nombre es de typo String
        (VARCHAR), único y no se aceptan valores nulos en este campo. */
     TypVeh_Name: {
-        type: sequelize_1.DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
@@ -49,13 +44,13 @@ TypeOfVehicles.init({
     /* El campo Cat_Description almacena una breve descripción de la categoría si el usuario quiere
      agregarla. Este campo es opcional y es de tipo String. */
     TypVeh_Description: {
-        type: sequelize_1.DataTypes.STRING,
+        type: DataTypes.STRING,
         defaultValue: ''
     },
     /* The Cat_Status field stores the status of a category. This field is optional and is of type Smallint */
     /* El campo Cat_Status almacena el estado de una categoría. Este campo es opcional y es de tipo Smallint */
     TypVeh_Status: {
-        type: sequelize_1.DataTypes.SMALLINT,
+        type: DataTypes.SMALLINT,
         defaultValue: 1
     }
 }, {
@@ -64,10 +59,10 @@ TypeOfVehicles.init({
     /* Se agrega la propiedad timestamps con el valor de false para que no se agreguen las columnas de fecha
     de creación y de actualización. */
     timestamps: false,
-    sequelize: connection_1.default,
+    sequelize: db,
     modelName: 'Type_Of_Vehicles'
 });
 /*  Finally, the TypeOfVehicles model is exported so that it can be used in other parts of the project. */
 /* Finalmente se exporta el modelo TypeOfVehicles para que pueda ser utilizado en otras partes del proyecto. */
-exports.default = TypeOfVehicles;
+export default TypeOfVehicles;
 //# sourceMappingURL=TypeOfVehicles.js.map

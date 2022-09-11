@@ -152,10 +152,10 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
         let resultsValidations: Object[] = await validateFieldsTypeOfVehicle(req, res);
     
-        if (!resultsValidations) {
+        if (resultsValidations.length > 0) {
             /* If there is an error I return a json array with each of the validations that were not met. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            res.status(200).send({errores: resultsValidations});
+            return res.status(200).send({errores: resultsValidations});
         }
         /* It is checked whether or not there is a vehicle type with the name received. */
         /* Se verifica si existe o no un tipo de vehículo con el nombre recibido. */
@@ -190,7 +190,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         /* Finalmente, si no hay ningún problema se retorna la información a través de un objeto json. */
         // @ts-ignore
         const { TypVeh_Name, TypVeh_Description} = typeOfVehicle;
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "Tipo de Vehículo registrado correctamente.",
@@ -231,24 +231,25 @@ const putTypeVehicle = async (req: Request, res: Response) => {
         /* Se extrae el id que se recibe en la solicitud (request). */
         const { TypVeh_Id } = req.params;
         
+        /* Checks whether the result array in which all validations are stored is empty or not. */
+        /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
+        const resultsValidations = await validateFieldsTypeOfVehicle(req, res);
+        if (resultsValidations.length > 0) {
+            /* If there is an error, return a json array with each of the validations that were not fulfilled. */
+            /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
+            return res.json({errores: resultsValidations});
+        }
+    
         /* The database is queried to verify whether the received id exists. */
         /* Se consulta la base de datos para verificar si existe el id recibido. */
         const typeVehicle:TypeOfVehicles|null = await TypeOfVehicles.findByPk(TypVeh_Id);
-        
+    
         /* Checking if the typeVehicle is not null, if it is not null, it will return an error message. */
         /* Verificando si typeVehicle no es nulo, si no es nulo, devolverá un mensaje de error. */
         if(!typeVehicle){
             return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo. '} ]});
         }
     
-        /* Checks whether the result array in which all validations are stored is empty or not. */
-        /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
-        const resultsValidations = await validateFieldsTypeOfVehicle(req, res);
-        if (!resultsValidations) {
-            /* If there is an error, return a json array with each of the validations that were not fulfilled. */
-            /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            return res.json({errores: resultsValidations});
-        }
     
         /* We proceed to extract each of the data to be modified in the database to be modified in the database. */
         /* Procedemos a extraer cada uno de los datos a modificar en la base de datos a modificar en la base de datos. */
@@ -280,7 +281,7 @@ const putTypeVehicle = async (req: Request, res: Response) => {
     
         /* Finally, if there is no problem, the information is returned through a json object. */
         /* Finalmente retorno la información del tipo de vehículo registrado. */
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "postTypeVehicle",
@@ -314,12 +315,14 @@ const putTypeVehicle = async (req: Request, res: Response) => {
 const validateFieldsTypeOfVehicle = async (req: Request, _res: Response) => {
     /* Validations through express validators. Among these are that the name field is not empty.
     /* Validaciones a través de express validators. Entre estas están que el campo nombre no este vacío.*/
-    await check('TypVeh_Name').notEmpty().withMessage("El nombre del tipo de vehículo es Obligatorio").run(req);
-    
+    await check('TypVeh_Name')
+        .notEmpty().withMessage("El nombre del tipo de vehículo es Obligatorio")
+        .isString().withMessage("El nombre del tipo de vehículo debe ser texto")
+        .isLength({min: 3, max: 25}).withMessage("El nombre del tipo de vehículo debe tener entre 3 y 25 caracteres")
+        .run(req);
     /* The result of each of the validations is returned in an array */
     /* Se retorna el resultado de cada una de las validaciones en un arreglo */
     return validationResult(req).array();
-    
 }
 
 /* Each of the declared functions is exported except for the function that validates the mandatory fields */

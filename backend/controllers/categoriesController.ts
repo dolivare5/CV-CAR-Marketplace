@@ -55,7 +55,7 @@ const getCategories = async (_req: Request, res: Response) => {
             de 200 y un mensaje que dice que no hay categorías en el sistema.
         */
         if(!categories){
-            res.status(200).send({ errors: [ { msg: 'No hay categorías registradas en el sistema'} ]});
+            return res.status(200).send({ errors: [ { msg: 'No hay categorías registradas en el sistema'} ]});
         }
         
         /* Finally I return the information of all the categories. */
@@ -121,7 +121,7 @@ const getCategory = async (req: Request, res: Response) => {
         /* Checking if the category exists. */
         /* Comprobando si la categoría existe. */
         if(!category){
-            res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
+            return res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
         }
         /* Finalmente retorno la información de la categoría registrada*/
         /* Finally I return the information of the registered category.*/
@@ -129,7 +129,7 @@ const getCategory = async (req: Request, res: Response) => {
         // @ts-ignore
         const { Cat_Name, Cat_Description} = category;
         
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "getCategory",
@@ -184,7 +184,7 @@ const postCategory = async (req: Request, res: Response) => {
         if (resultsValidations.length > 0) {
             /* If there is an error I return a json array with each of the validations that were not met. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            res.status(200).send({errors: resultsValidations});
+            return res.status(200).send({errors: resultsValidations});
         }
     
         /* It is checked if there is or is not a Category with the name that is received. */
@@ -220,7 +220,7 @@ const postCategory = async (req: Request, res: Response) => {
         /* Finalmente, si no hay ningún problema, se retorna la información a través de un objeto json. */
         // @ts-ignore
         const { Cat_Name, Cat_Description} = category ;
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "Categoría registrada correctamente.",
@@ -321,7 +321,7 @@ const putCategory = async (req: Request, res: Response) => {
     
         /* Finally I return the information of the registered category. */
         /* Finalmente retorno la información de la categoría registrada. */
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "postCategory",
@@ -350,7 +350,10 @@ const validateFieldsCategory = async (req: Request, _res: Response) => {
         Validations through express validators. Among these are that no invalid data is entered.
         For this purpose, it is validated that the name field is not empty.
      */
-    await check('Cat_Name').notEmpty().withMessage("El nombre de la categoría es Obligatorio").run(req);
+    await check('Cat_Name')
+        .notEmpty().withMessage("El nombre de la categoría es Obligatorio")
+        .isString().withMessage("El nombre de la categoría debe ser un texto valido")
+    .run(req);
     
     /* Se retorna el resultado de cada una de las validaciones realizadas. */
     /* The result of each of the validations performed is returned. */

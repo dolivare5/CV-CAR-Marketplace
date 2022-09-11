@@ -3,20 +3,19 @@
 	"version": "1.0.0",
 	"description": "Sistema Marketplace Orientado al sector automotriz",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
-		"dev": "tsc && concurrently \"tsc -w\" \"nodemon build/index.js\"",
-		"start": "node build/index.js",
-		"tsc": "tsc"
+		"server": "node --experimental-specifier-resolution=node build/index.js",
+		"ts": "tsc",
+		"dev": "npm-run-all --parallel server ts"
 	},
 	"author": "CVCAR",
 	"license": "ISC",
 	"devDependencies": {
 		"@types/cors": "^2.8.12",
 		"@types/express": "^4.17.13",
-		"concurrently": "^7.3.0",
 		"ts-node-dev": "^2.0.0",
-		"typescript": "^4.7.4",
-		"webpack": "^5.74.0"
+		"typescript": "^4.7.4"
 	},
 	"dependencies": {
 		"@types/pg": "^8.6.5",

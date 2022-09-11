@@ -1,22 +1,17 @@
-"use strict";
 /* Sequelize is an ORM that allows us to call javascript functions to interact with the database without writing actual queries.
 without writing real queries. It is quite useful to speed up development time. */
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /* Sequelize es un ORM que nos permite llamar a funciones de javascript para interactuar con la base de datos
 sin escribir consultas reales. Es bastante útil para acelerar el tiempo de desarrollo */
-const sequelize_1 = require("sequelize");
+import { Sequelize } from "sequelize";
 /* The dotenv library allows you to register and configure the environment variables registered for this project. */
 /* La librería dotenv permite registrar y configurar las variables de entorno registradas para este proyecto. */
-const dotenv_1 = __importDefault(require("dotenv"));
+import dotenv from "dotenv";
 /* Loading the environment variables from the .env file. */
 /* Cargando las variables de entorno desde el archivo .env. */
-dotenv_1.default.config({ path: '.env' });
+dotenv.config({ path: '.env' });
 /* Creating a connection to the database. */
 /* Creación de una conexión a la base de datos. */
-const db = new sequelize_1.Sequelize(process.env.POSTGRES_DB_NAME || '', process.env.POSTGRES_USER || '', process.env.POSTGRES_PASS || '', {
+const db = new Sequelize(process.env.POSTGRES_DB_NAME || '', process.env.POSTGRES_USER || '', process.env.POSTGRES_PASS || '', {
     host: process.env.POSTGRES_HOST || '',
     port: parseInt(process.env.POSTGRES_PORT_BD || '5432'),
     dialect: 'postgres',
@@ -45,5 +40,5 @@ const db = new sequelize_1.Sequelize(process.env.POSTGRES_DB_NAME || '', process
 });
 /* Finally, this connection object is exported to the database to make it accessible in other parts of the project parts of the project. */
 /* Finalmente, este objeto de conexión es exportado a la base de datos para que sea accesible en otras partes del proyecto. */
-exports.default = db;
+export default db;
 //# sourceMappingURL=connection.js.map

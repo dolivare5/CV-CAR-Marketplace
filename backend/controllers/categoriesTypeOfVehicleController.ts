@@ -59,7 +59,7 @@ const getCategoriesAndTypeVehiclesAssociated = async (_req: Request, res: Respon
         /* Comprobando si se encontraron o no categorías asociadas a tipos de vehículos. */
         /* Checking whether or not categories associated with vehicle types were found. */
         if(!categoriesAsTypeVehicles){
-            res.status(200).send({ errors: [ { msg: 'No hay categorías asociadas a tipos de vehículos registradas en el sistema'} ]});
+            return res.status(200).send({ errors: [ { msg: 'No hay categorías asociadas a tipos de vehículos registradas en el sistema'} ]});
         }
         
         /* Returning a response to the user. */
@@ -81,7 +81,6 @@ const getCategoriesAndTypeVehiclesAssociated = async (_req: Request, res: Respon
         return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
-
 
 /**
  * A query to the database that returns the vehicle types associated with the entered category
@@ -189,6 +188,26 @@ const getCategoriesAssociatedWithTypeVehicle = async (req: Request, res: Respons
     }
 }
 
+/**
+ * Recibe la identificación de categoría y tipo de vehículo, valida que no estén vacíos, busca la categoría y tipo de
+ * vehículo con la identificación ingresada por el usuario, verifica si la categoría o tipo de vehículo ingresado no
+ * existe, verifica si el vehículo la categoría y el tipo ya existen en la base de datos, crea una nueva instancia de la
+ * clase Categories_TypeOfVehicle, guarda la nueva instancia de la clase Categories_TypeOfVehicle en la base de datos y
+ * devuelve una respuesta al usuario
+ * @param {Request} req - Es la petición que el usuario envía al servidor.
+ * @param {Response} res - Es la respuesta que se enviará al usuario.
+ * @returns una respuesta al usuario.
+ */
+/**
+ * It receives the category and type of vehicle identification, validates that they are not empty, searches for the
+ * category and type of vehicle with the id entered by the user, checks if the category or type of vehicle entered does not
+ * exist, checks if the vehicle category and type already exists in the database, creates a new instance of the
+ * Categories_TypeOfVehicle class, saves the new instance of the Categories_TypeOfVehicle class in the database and returns
+ * a response to the user
+ * @param {Request} req - Request: It is the request that the user sends to the server.
+ * @param {Response} res - Response: It is the response that will be sent to the user.
+ * @returns a response to the user.
+ */
 const postCategoriesAndTypeVehiclesAssociated = async (req: Request, res: Response) => {
     try{
         /* Destructuring of the CategoryCatId and TypeOfVehicleTypVehId property of the req.body object. */
@@ -197,8 +216,8 @@ const postCategoriesAndTypeVehiclesAssociated = async (req: Request, res: Respon
     
         /* Validating that the category and type of vehicle identification are not empty. */
         /* Validando que la categoría y el tipo de identificación del vehículo no estén vacíos. */
-        let resultsValidations:Object[] = await validateCategoriesAndTypeVehiclesAssociated(req, res);
-        if(!resultsValidations){
+        const resultsValidations:Object[] = await validateCategoriesAndTypeVehiclesAssociated(req, res);
+        if(resultsValidations.length > 0){
             return res.status(400).send({ errors: resultsValidations });
         }
     
@@ -279,8 +298,15 @@ const postCategoriesAndTypeVehiclesAssociated = async (req: Request, res: Respon
 const validateCategoriesAndTypeVehiclesAssociated = async (req: Request, _res: Response) => {
     /* The category id and vehicle type id are not empty. */
     /* Se valida de el id de la categoría y del tipo de vehículo no estén vacíos. */
-    await check('CategoryCatId', 'El id de la categoría es obligatorio').not().isEmpty().run(req);
-    await check('TypeOfVehicleTypVehId', 'El id del tipo de vehículo es obligatorio').not().isEmpty().run(req);
+    await check('CategoryCatId')
+        .notEmpty().withMessage('El id de la categoría no puede estar vacío')
+        .isNumeric().withMessage('El id de la categoría debe ser numérico')
+    .run(req);
+    
+    await check('TypeOfVehicleTypVehId')
+        .notEmpty().withMessage('El id del tipo de vehículo no puede estar vacío')
+        .isNumeric().withMessage('El id del tipo de vehículo debe ser numérico')
+    .run(req);
     
     /* Validates the request body and returns a series of errors. */
     /* Valida el cuerpo de la solicitud y devuelve una serie de errores. */

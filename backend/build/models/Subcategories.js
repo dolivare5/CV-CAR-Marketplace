@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /* Importing the DataTypes and Model from the sequelize library. */
 /* Importación de los tipos de datos y el modelo de la biblioteca de sequelize. */
-const sequelize_1 = require("sequelize");
+import { DataTypes, Model } from "sequelize";
 /* The import of the connection object and sequelize configuration to manipulate the database is performed. */
 /* Se realiza la importación del objeto de conexión y configuración de sequelize para manipular la bd. */
-const connection_1 = __importDefault(require("../db/connection"));
+import db from "../db/connection";
 /* A template for creating, modifying, reading and deleting records from the SubCategories table is created
 below. It is important to note that this is an object and that it is reflected in the database at the time of the
 configuration is synchronized. As for the records that are stored through this model, they contain information
@@ -18,7 +13,7 @@ associated to the sales system (Marketplace). */
 Es importante tener en cuenta que esto es un objeto y que se refleja en la base de datos en el momento en el que se
 sincroniza la configuración. En cuanto a los registros que se almacenen a través de este modelo contienen
 información sobre las categorías de los diferentes vehículos asociados al sistema de venta (Marketplace). */
-class SubCategories extends sequelize_1.Model {
+class SubCategories extends Model {
 }
 SubCategories.init({
     /* The Cat_Id field refers to the unique identifier of each record or subcategory registered in the database.
@@ -30,7 +25,7 @@ SubCategories.init({
      el identificador se genera automáticamente y es de typo SMALLINT, ya que es suficientes para la cantidad de
      registros a insertar y de esta forma se optimiza la base de datos.  */
     SubCat_Id: {
-        type: sequelize_1.DataTypes.SMALLINT,
+        type: DataTypes.SMALLINT,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
@@ -40,7 +35,7 @@ SubCategories.init({
     /* En el campo o columna Cat_Name se almacena el nombre de la subcategoría. El nombre es de typo String
     (VARCHAR), único y no se aceptan valores nulos en este campo. */
     SubCat_Name: {
-        type: sequelize_1.DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
@@ -49,13 +44,13 @@ SubCategories.init({
     /* El campo Cat_Description almacena una breve descripción de la subcategoría si el usuario quiere
     agregarla. Este campo es opcional y es de tipo String. */
     SubCat_Description: {
-        type: sequelize_1.DataTypes.STRING,
+        type: DataTypes.STRING,
         defaultValue: ''
     },
     /* The Cat_Status field stores the status of a subcategory. This field is optional and is of type Smallint. */
     /* El campo Cat_Status almacena el estado de una subcategoría. Este campo es opcional y es de tipo Smallint. */
     SubCat_Status: {
-        type: sequelize_1.DataTypes.SMALLINT,
+        type: DataTypes.SMALLINT,
         defaultValue: 1
     }
 }, {
@@ -64,10 +59,10 @@ SubCategories.init({
     /* Se agrega la propiedad timestamps con el valor de false para que no se agreguen las columnas de fecha
     de creación y de actualización. */
     timestamps: false,
-    sequelize: connection_1.default,
+    sequelize: db,
     modelName: 'SubCategories'
 });
 /* Finally, the SubCategories model is exported so that it can be used in other parts of the project. */
 /* Finalmente se exporta el modelo SubCategories para que pueda ser utilizado en otras partes del proyecto. */
-exports.default = SubCategories;
+export default SubCategories;
 //# sourceMappingURL=Subcategories.js.map

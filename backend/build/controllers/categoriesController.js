@@ -1,30 +1,15 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.putCategory = exports.postCategory = exports.getCategory = exports.getCategories = void 0;
 /* Here functions and methods necessary for the validation of each field that is received as a parameter are imported. */
 /* Aquí se importan funciones y métodos necesarios para la validación de cada campo que se recibe como parámetro. */
-const express_validator_1 = require("express-validator");
+import { check, validationResult } from 'express-validator';
 /* Importing the Categories model from the models folder. */
 /* Importando el modelo de Categorías desde la carpeta de modelos. */
-const Categories_1 = __importDefault(require("../models/Categories"));
+import Categories from "../models/Categories";
 /* Importing the QueryTypes from the sequelize package. */
 /* Importación de QueryTypes desde el paquete Sequelize. */
-const sequelize_1 = require("sequelize");
+import { QueryTypes } from "sequelize";
 /* Importing the connection.ts file from the db folder. */
 /* Importando el archivo connection.ts desde la carpeta db. */
-const connection_1 = __importDefault(require("../db/connection"));
+import db from "../db/connection";
 /**
  * It returns all the categories registered in the system
  * @param {Request} _req - Request, res: Response
@@ -37,13 +22,13 @@ const connection_1 = __importDefault(require("../db/connection"));
  * @param {Response} res - Respuesta: Este es el objeto de respuesta que se utiliza para enviar la respuesta al cliente.
  * @returns La información de todas las categorías.
  */
-const getCategories = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getCategories = async (_req, res) => {
     /* The next code is performing a query to the database to extract the registered categories. */
     /* El código siguiente está realizando una consulta a la base de datos para extraer las categorías registradas. */
     try {
         /* A database query is performed to extract the registered categories. */
         /* Se realiza una consulta à la base de datos para extraer las categorías registradas.*/
-        const categories = yield Categories_1.default.findAll({
+        const categories = await Categories.findAll({
             attributes: ['Cat_Name', 'Cat_Description'],
             where: { Cat_Status: 1 }
         });
@@ -56,7 +41,7 @@ const getCategories = (_req, res) => __awaiter(void 0, void 0, void 0, function*
             de 200 y un mensaje que dice que no hay categorías en el sistema.
         */
         if (!categories) {
-            res.status(200).send({ errors: [{ msg: 'No hay categorías registradas en el sistema' }] });
+            return res.status(200).send({ errors: [{ msg: 'No hay categorías registradas en el sistema' }] });
         }
         /* Finally I return the information of all the categories. */
         /* Finalmente retorno la información de todas las categorías. */
@@ -81,8 +66,7 @@ const getCategories = (_req, res) => __awaiter(void 0, void 0, void 0, function*
          */
         return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.getCategories = getCategories;
+};
 /**
  * It receives a request and a response, it extracts the id of the category that comes in the body of the request, it makes
  * a query to the database to extract the category that has the received id registered, and finally it returns the
@@ -99,7 +83,7 @@ exports.getCategories = getCategories;
  * @param {Response} res - Respuesta: Este es el objeto de respuesta que se utiliza para enviar la respuesta al cliente.
  * @returns La información de la categoría que tiene el id que se recibe.
  */
-const getCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getCategory = async (req, res) => {
     /* The next code is a function that is responsible for extracting the information of a category that is registered in
     the database. */
     /* El código siguiente es una función que se encarga de extraer la información de una categoría que se encuentra
@@ -110,17 +94,17 @@ const getCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const { Cat_Id } = req.params;
         /* Se realiza una consulta à la base de datos para extraer la categoría que tenga registrada el id que se recibe. */
         /* English: A query is made to the database to extract the category that has the received id registered id that is received. */
-        const category = yield Categories_1.default.findByPk(Cat_Id);
+        const category = await Categories.findByPk(Cat_Id);
         /* Checking if the category exists. */
         /* Comprobando si la categoría existe. */
         if (!category) {
-            res.status(200).send({ errors: [{ msg: 'El código ingresado no corresponde a ninguna categoría  ' }] });
+            return res.status(200).send({ errors: [{ msg: 'El código ingresado no corresponde a ninguna categoría  ' }] });
         }
         /* Finalmente retorno la información de la categoría registrada*/
         /* Finally I return the information of the registered category.*/
         // @ts-ignore
         const { Cat_Name, Cat_Description } = category;
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "getCategory",
@@ -138,8 +122,7 @@ const getCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         /* Sending a 500 status code and a message to the user. */
         return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.getCategory = getCategory;
+};
 /**
  * It receives the data from the body of the request, validates the data, checks if the category already exists, creates a
  * new category object, saves the category object to the database, and returns a response with the data of the category
@@ -156,24 +139,24 @@ exports.getCategory = getCategory;
  * @param {Response} res - Respuesta: Es la respuesta que se devuelve al cliente.
  * @returns un objeto json con la información de la categoría creada.
  */
-const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postCategory = async (req, res) => {
     /* The data that comes in the body is extracted through the request. */
     /* Se extraen los datos que vienen en el body a través del request. */
     const { body } = req;
     try {
         /* Checks whether the result array in which all validations are stored is empty or not. */
         /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
-        const resultsValidations = yield validateFieldsCategory(req, res);
+        const resultsValidations = await validateFieldsCategory(req, res);
         /* The next code is validating the data that is being sent to the server. */
         /* El código siguiente está validando los datos que se envían al servidor. */
         if (resultsValidations.length > 0) {
             /* If there is an error I return a json array with each of the validations that were not met. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            res.status(200).send({ errors: resultsValidations });
+            return res.status(200).send({ errors: resultsValidations });
         }
         /* It is checked if there is or is not a Category with the name that is received. */
         /* Se comprueba si existe o no una Categoría con el nombre que se recibe.*/
-        const existCategory = yield Categories_1.default.findOne({
+        const existCategory = await Categories.findOne({
             where: {
                 Cat_Name: body.Cat_Name
             }
@@ -192,15 +175,15 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         /*  If there is no category equal to the one entered, an object of type Categories is created. */
         /*  Si no existe una categoría que sea igual à la ingresada se crea un objeto de tipo Categories. */
         // @ts-ignore
-        const category = new Categories_1.default(body);
+        const category = new Categories(body);
         /* Once the object has been created, the information of the object is saved to the db. */
         /* Una vez se ha creado el objeto, se procede a guardar la información de dicho objeto à la db. */
-        yield category.save();
+        await category.save();
         /* Finally, if there is no problem, the information is returned through a json object. */
         /* Finalmente, si no hay ningún problema, se retorna la información a través de un objeto json. */
         // @ts-ignore
         const { Cat_Name, Cat_Description } = category;
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "Categoría registrada correctamente.",
@@ -218,8 +201,7 @@ const postCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         /* Sending a 500 status code and a message to the user. */
         return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.postCategory = postCategory;
+};
 /**
  * It receives a request and a response, it validates the data received in the request, it updates the data in the database
  * and returns a response with the updated data
@@ -236,14 +218,14 @@ exports.postCategory = postCategory;
  * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
  * @returns la información de la categoría que fue modificada.
  */
-const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const putCategory = async (req, res) => {
     try {
         /* Destructuring the Cat_Id from the req.params object. */
         /* Desestructuración del Cat_Id del objeto req.params. */
         const { Cat_Id } = req.params;
         /* The database is queried to verify whether the received id exists. */
         /* Se consulta la base de datos para verificar si existe el id recibido. */
-        const category = yield Categories_1.default.findByPk(Cat_Id);
+        const category = await Categories.findByPk(Cat_Id);
         /* Checking if the category exists. */
         /* Comprobando si la categoría existe. */
         if (!category) {
@@ -251,7 +233,7 @@ const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
         /* Checks whether the result array in which all validations are stored is empty or not. */
         /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
-        const resultsValidations = yield validateFieldsCategory(req, res);
+        const resultsValidations = await validateFieldsCategory(req, res);
         if (resultsValidations.length > 0) {
             /* De haber un error, retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
             /* If there is an error I return a json array with each of the validations that were not met. */
@@ -271,7 +253,7 @@ const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             registrado en otras categorías. Para ello se realiza una consulta donde se busca si en algún registro
             diferente al que se va a modificar se encuentra el nombre a registrar. Si se encuentra no se registra.
         */
-        const existCategoryRepeated = yield connection_1.default.query(`SELECT * FROM "Categories" c WHERE "Cat_Id" != ${Cat_Id} AND "Cat_Name" = '${Cat_Name}'`, { type: sequelize_1.QueryTypes.SELECT });
+        const existCategoryRepeated = await db.query(`SELECT * FROM "Categories" c WHERE "Cat_Id" != ${Cat_Id} AND "Cat_Name" = '${Cat_Name}'`, { type: QueryTypes.SELECT });
         /* If there is no category registered under that name, the registration will proceed. */
         /* Si no existe una categoría registrada con ese nombre se procede con el registro. */
         if (existCategoryRepeated.length > 0) {
@@ -282,10 +264,10 @@ const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         category.set({ Cat_Name, Cat_Description, Cat_Status });
         /* Once the object that stores the modified category has been updated, we proceed to edit the registry in the db. */
         /* Una vez actualizado el objeto que guarda la categoría ya modificada se procede a editar el registro en la db. */
-        yield category.save();
+        await category.save();
         /* Finally I return the information of the registered category. */
         /* Finalmente retorno la información de la categoría registrada. */
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "postCategory",
@@ -300,11 +282,10 @@ const putCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         /* Sending a 500 status code and a message to the user. */
         return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.putCategory = putCategory;
+};
 /* Método que valida los campos obligatorios para la tabla de categorías. */
 /* Method that validates the mandatory fields for the categories table. */
-const validateFieldsCategory = (req, _res) => __awaiter(void 0, void 0, void 0, function* () {
+const validateFieldsCategory = async (req, _res) => {
     /*
         Validaciones a través de express validators. Entre estas están que no se ingresen datos no validos.
         Para ello se valida que el campo nombre no este vacío.
@@ -313,9 +294,15 @@ const validateFieldsCategory = (req, _res) => __awaiter(void 0, void 0, void 0, 
         Validations through express validators. Among these are that no invalid data is entered.
         For this purpose, it is validated that the name field is not empty.
      */
-    yield (0, express_validator_1.check)('Cat_Name').notEmpty().withMessage("El nombre de la categoría es Obligatorio").run(req);
+    await check('Cat_Name')
+        .notEmpty().withMessage("El nombre de la categoría es Obligatorio")
+        .isString().withMessage("El nombre de la categoría debe ser un texto valido")
+        .run(req);
     /* Se retorna el resultado de cada una de las validaciones realizadas. */
     /* The result of each of the validations performed is returned. */
-    return (0, express_validator_1.validationResult)(req).array();
-});
+    return validationResult(req).array();
+};
+/* Se exportan todos los métodos que se utilizan en el controlador. */
+/* All methods used in the controller are exported. */
+export { getCategories, getCategory, postCategory, putCategory };
 //# sourceMappingURL=categoriesController.js.map

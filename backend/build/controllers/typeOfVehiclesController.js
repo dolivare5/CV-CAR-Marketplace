@@ -1,30 +1,15 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.putTypeVehicle = exports.postTypeVehicle = exports.getTypeVehicle = exports.getTypesVehicles = void 0;
 /* The next code is importing the check and validationResult functions from the express-validator package. */
 /* El código anterior está importando las funciones check y validationResult del paquete express-validator. */
-const express_validator_1 = require("express-validator");
+import { check, validationResult } from 'express-validator';
 /* Importing the QueryTypes from the sequelize package. */
 /* Importación de QueryTypes desde el paquete Sequelize. */
-const sequelize_1 = require("sequelize");
+import { QueryTypes } from "sequelize";
 /* Importing the connection.ts file from the db folder. */
 /* Importando el archivo connection.ts desde la carpeta db. */
-const connection_1 = __importDefault(require("../db/connection"));
+import db from "../db/connection";
 /* Importing the TypeOfVehicles class from the models folder. */
 /* Importando la clase TypeOfVehicles de la carpeta de modelos. */
-const TypeOfVehicles_1 = __importDefault(require("../models/TypeOfVehicles"));
+import TypeOfVehicles from "../models/TypeOfVehicles";
 /**
  * A function that allows you to obtain the types of vehicles registered in the system.
  * @param {Request} _req - Request, res: Response
@@ -37,14 +22,14 @@ const TypeOfVehicles_1 = __importDefault(require("../models/TypeOfVehicles"));
  * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
  * @returns los tipos de vehículos registrados en el sistema.
  */
-const getTypesVehicles = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getTypesVehicles = async (_req, res) => {
     /* The next code is performing a query to the database to extract the types of vehicles registered in the system. */
     /* El código siguiente está realizando una consulta a la base de datos para extraer los tipos de vehículos registrados
     en el sistema. */
     try {
         /* A database query is performed to extract the types of vehicles registered. */
         /* Se realiza una consulta à la base de datos para extraer los tipos de vehículos registrados. */
-        const typeOfVehicles = yield TypeOfVehicles_1.default.findAll({
+        const typeOfVehicles = await TypeOfVehicles.findAll({
             attributes: ['TypVeh_Name', 'TypVeh_Description'],
             where: { TypVeh_Status: 1 }
         });
@@ -72,8 +57,7 @@ const getTypesVehicles = (_req, res) => __awaiter(void 0, void 0, void 0, functi
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.getTypesVehicles = getTypesVehicles;
+};
 /**
  * A function that allows you to get the type of vehicle registered in the database.
  * @param {Request} req - Request, res: Response
@@ -86,14 +70,14 @@ exports.getTypesVehicles = getTypesVehicles;
  * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
  * @returns la información del tipo de vehículo registrado en el id que se está recibiendo.
  */
-const getTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getTypeVehicle = async (req, res) => {
     try {
         /* The data that comes in the body is extracted through the request.*/
         /* Se extraen los datos que vienen en el body a través del request. */
         const { TypVeh_Id } = req.params;
         /* A query is made to the database to extract the type of vehicle registered in the id received registered in the id being received. */
         /* Se realiza una consulta à la base de datos para extraer el tipo de vehículo que tenga registrado el id que se recibe. */
-        const typeOfVehicle = yield TypeOfVehicles_1.default.findByPk(TypVeh_Id);
+        const typeOfVehicle = await TypeOfVehicles.findByPk(TypVeh_Id);
         /* Checking if the typeOfVehicle is not null, if it is not null, it will send a response with a status of 200 and a message. */
         /* Comprobando si typeOfVehicle no es nulo, si no es nulo, enviará una respuesta con un estado de 200 y un mensaje. */
         if (!typeOfVehicle) {
@@ -121,8 +105,7 @@ const getTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function*
         /* Envía un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.getTypeVehicle = getTypeVehicle;
+};
 /**
  * It receives the data that comes in the body of the request, validates it, checks if there is a vehicle type with the
  * same name, if there is not, it creates an object of type TypeOfVehicles with the data received and saves it to the db
@@ -137,22 +120,22 @@ exports.getTypeVehicle = getTypeVehicle;
  * @param {Response} res - Respuesta: Es la respuesta que se devuelve al cliente.
  * @returns un objeto json con la información del tipo de vehículo que se creó.
  */
-const postTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postTypeVehicle = async (req, res) => {
     /* Se extraen los datos que vienen en el body a través del request. */
     /* The data that comes in the body is extracted through the request. */
     const { body } = req;
     try {
         /* Checks whether the result array in which all validations are stored is empty or not.*/
         /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
-        let resultsValidations = yield validateFieldsTypeOfVehicle(req, res);
-        if (!resultsValidations) {
+        let resultsValidations = await validateFieldsTypeOfVehicle(req, res);
+        if (resultsValidations.length > 0) {
             /* If there is an error I return a json array with each of the validations that were not met. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            res.status(200).send({ errores: resultsValidations });
+            return res.status(200).send({ errores: resultsValidations });
         }
         /* It is checked whether or not there is a vehicle type with the name received. */
         /* Se verifica si existe o no un tipo de vehículo con el nombre recibido. */
-        const existTypeVehicle = yield TypeOfVehicles_1.default.findOne({
+        const existTypeVehicle = await TypeOfVehicles.findOne({
             where: {
                 TypVeh_Name: body.TypVeh_Name
             }
@@ -173,15 +156,15 @@ const postTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function
         /* Si no existe un tipo de vehículo que sea igual al ingresado se procede a crear un objeto de tipo
             TypeOfVehicles con la información que se recibe. */
         // @ts-ignore
-        const typeOfVehicle = new TypeOfVehicles_1.default(body);
+        const typeOfVehicle = new TypeOfVehicles(body);
         /* Once the object has been created, the information of the object is saved to the db. */
         /* Una vez creado el objeto se guarda la información del objeto en la db. */
-        yield typeOfVehicle.save();
+        await typeOfVehicle.save();
         /* Finally, if there is no problem, the information is returned through a json object. */
         /* Finalmente, si no hay ningún problema se retorna la información a través de un objeto json. */
         // @ts-ignore
         const { TypVeh_Name, TypVeh_Description } = typeOfVehicle;
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "Tipo de Vehículo registrado correctamente.",
@@ -199,8 +182,7 @@ const postTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.postTypeVehicle = postTypeVehicle;
+};
 /**
  * It receives a request with the id of the vehicle type to be modified, validates the data received in the request, and if
  * there are no errors, it updates the vehicle type in the database
@@ -215,26 +197,26 @@ exports.postTypeVehicle = postTypeVehicle;
  * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
  * @returns la información del tipo de vehículo matriculado.
  */
-const putTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const putTypeVehicle = async (req, res) => {
     try {
         /* The id received in the request is extracted. */
         /* Se extrae el id que se recibe en la solicitud (request). */
         const { TypVeh_Id } = req.params;
+        /* Checks whether the result array in which all validations are stored is empty or not. */
+        /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
+        const resultsValidations = await validateFieldsTypeOfVehicle(req, res);
+        if (resultsValidations.length > 0) {
+            /* If there is an error, return a json array with each of the validations that were not fulfilled. */
+            /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
+            return res.json({ errores: resultsValidations });
+        }
         /* The database is queried to verify whether the received id exists. */
         /* Se consulta la base de datos para verificar si existe el id recibido. */
-        const typeVehicle = yield TypeOfVehicles_1.default.findByPk(TypVeh_Id);
+        const typeVehicle = await TypeOfVehicles.findByPk(TypVeh_Id);
         /* Checking if the typeVehicle is not null, if it is not null, it will return an error message. */
         /* Verificando si typeVehicle no es nulo, si no es nulo, devolverá un mensaje de error. */
         if (!typeVehicle) {
             return res.json({ errors: [{ msg: 'El código ingresado no corresponde a ningún tipo de vehículo. ' }] });
-        }
-        /* Checks whether the result array in which all validations are stored is empty or not. */
-        /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
-        const resultsValidations = yield validateFieldsTypeOfVehicle(req, res);
-        if (!resultsValidations) {
-            /* If there is an error, return a json array with each of the validations that were not fulfilled. */
-            /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            return res.json({ errores: resultsValidations });
         }
         /* We proceed to extract each of the data to be modified in the database to be modified in the database. */
         /* Procedemos a extraer cada uno de los datos a modificar en la base de datos a modificar en la base de datos. */
@@ -242,7 +224,7 @@ const putTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function*
         /* A query to the database to see if there is a type of vehicle with the same name as the one that is being edited. */
         /* Una consulta a la base de datos para ver si existe algún tipo de vehículo con el mismo nombre que el que se está
         editando. */
-        const existTypeVehicleRepeated = yield connection_1.default.query(`SELECT * FROM "Type_Of_Vehicles" tv WHERE "TypVeh_Id" != ${TypVeh_Id} AND "TypVeh_Name" = '${TypVeh_Name}'`, { type: sequelize_1.QueryTypes.SELECT });
+        const existTypeVehicleRepeated = await db.query(`SELECT * FROM "Type_Of_Vehicles" tv WHERE "TypVeh_Id" != ${TypVeh_Id} AND "TypVeh_Name" = '${TypVeh_Name}'`, { type: QueryTypes.SELECT });
         /* If there is a record, it is not allowed to update the record. Otherwise, the record is proceeded with. */
         /* Si existe un registro no se permite actualizar el registro. Caso contrario, se procede con el registro. */
         if (!existTypeVehicleRepeated) {
@@ -253,10 +235,10 @@ const putTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function*
         typeVehicle.set({ TypVeh_Name, TypVeh_Description, TypVeh_Status });
         /* Once the object that stores the modified vehicle type has been edited, the record is updated in the db. */
         /* Una vez editado el objeto que guarda el tipo de vehículo ya modificado se actualiza el registro en la db. */
-        yield typeVehicle.save();
+        await typeVehicle.save();
         /* Finally, if there is no problem, the information is returned through a json object. */
         /* Finalmente retorno la información del tipo de vehículo registrado. */
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "postTypeVehicle",
@@ -271,8 +253,7 @@ const putTypeVehicle = (req, res) => __awaiter(void 0, void 0, void 0, function*
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.putTypeVehicle = putTypeVehicle;
+};
 /**
  * It validates that the name field is not empty
  * @param {Request} req - Request, _res: Response
@@ -286,12 +267,19 @@ exports.putTypeVehicle = putTypeVehicle;
  * devuelve una respuesta.
  * @returns una matriz con el resultado de cada validación de campo y se devuelve la matriz.
  */
-const validateFieldsTypeOfVehicle = (req, _res) => __awaiter(void 0, void 0, void 0, function* () {
+const validateFieldsTypeOfVehicle = async (req, _res) => {
     /* Validations through express validators. Among these are that the name field is not empty.
     /* Validaciones a través de express validators. Entre estas están que el campo nombre no este vacío.*/
-    yield (0, express_validator_1.check)('TypVeh_Name').notEmpty().withMessage("El nombre del tipo de vehículo es Obligatorio").run(req);
+    await check('TypVeh_Name')
+        .notEmpty().withMessage("El nombre del tipo de vehículo es Obligatorio")
+        .isString().withMessage("El nombre del tipo de vehículo debe ser texto")
+        .isLength({ min: 3, max: 25 }).withMessage("El nombre del tipo de vehículo debe tener entre 3 y 25 caracteres")
+        .run(req);
     /* The result of each of the validations is returned in an array */
     /* Se retorna el resultado de cada una de las validaciones en un arreglo */
-    return (0, express_validator_1.validationResult)(req).array();
-});
+    return validationResult(req).array();
+};
+/* Each of the declared functions is exported except for the function that validates the mandatory fields */
+/* Se exportan cada una de las funciones declaradas a exepción de la función que valida los campos obligatorios */
+export { getTypesVehicles, getTypeVehicle, postTypeVehicle, putTypeVehicle };
 //# sourceMappingURL=typeOfVehiclesController.js.map

@@ -1,23 +1,9 @@
-"use strict";
 /* The cors library is used to enable the Cross-Origin Resource Sharing (CORS) to enable cross-origin HTTP requests
 that are initiated from scripts running in the browser. executed in the browser. */
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /* Se hace uso de la librería cors para habilitar el Intercambio de Recursos de Origen Cruzado (CORS) y con esto
 habilitar las solicitudes HTTP de origen cruzado que se inician desde secuencias de comandos que se ejecutan en el
 navegador. */
-const cors_1 = __importDefault(require("cors"));
+import cors from "cors";
 /* Express is used, since it allows us to create APIs and web applications easily, since it provides us with
 a set of features such as features such as route management (addressing), static files, use of témplate engine,
 integration with databases, error handling, middlewares and others, integration with databases, error handling,
@@ -30,27 +16,29 @@ integración con bases de datos, manejo de errores, middlewares entre otras. Es 
 de aplicaciones de negocio, en particular para la automatización y la integración de la tecnología.
 Su enfoque minimalista, su alta escalabilidad, su velocidad y su rendimiento general son solo algunas de las razones
 por las que decidimos utilizar Expressjs. */
-const express_1 = __importDefault(require("express"));
+import express from "express";
 /* The import of the connection object and sequelize configuration to manipulate the database is performed. */
 /* Se realiza la importación del objeto de conexión y configuración de sequelize para manipular la bd. */
-const connection_1 = __importDefault(require("../db/connection"));
+import db from "../db/connection";
 /* Importing the categoriesRouter from the routes folder. */
 /* Importando las categoríasRouter desde la carpeta de rutas. */
-const categoriesRouter_1 = __importDefault(require("../routes/categoriesRouter"));
+import categoriesRouter from "../routes/categoriesRouter";
 /* Importing the typeOfVehiclesRouter from the routes folder. */
 /* Importando el typeOfVehiclesRouter de la carpeta de rutas. */
-const typeOfVehiclesRouter_1 = __importDefault(require("../routes/typeOfVehiclesRouter"));
+import typeOfVehicleRouter from "../routes/typeOfVehiclesRouter";
 /* Importing the subCategoriesRouter from the routes folder. */
 /* Importando el subCategoriesRouter desde la carpeta de rutas. */
-const subCategoriesRouter_1 = __importDefault(require("../routes/subCategoriesRouter"));
-/* Importing the categories from the Categories.ts file. */
-/* Importando las categorías del archivo Categories.ts. */
-const Categories_1 = __importDefault(require("./Categories"));
-/* Importing the Categories model from the Associations.ts file. */
-/* Importando el modelo de Categorías del archivo Associations.ts. */
-const Associations_1 = require("./Associations");
+import subCategoriesRouter from "../routes/subCategoriesRouter";
+/* Importing the data from the files Categories and Subcategories. */
+/* Importación de los datos de los archivos Categorías y Subcategorías. */
+import categories from "./Categories";
+import subCategories from "./Subcategories";
+/* Importing the models from the Associations file. */
+/* Importación de los modelos desde el archivo de Asociaciones. */
+import { Categories, Subcategories } from "./Associations";
 /* Importing the categories_TypeOfVehicleRouter from the routes folder. */
-const Categories_TypeOfVehicleRouter_1 = __importDefault(require("../routes/Categories_TypeOfVehicleRouter"));
+import categories_TypeOfVehicleRouter from "../routes/Categories_TypeOfVehicleRouter";
+import categoriesHasSubCategoriesRouter from "../routes/CategoriesHasSubCategoriesRouter";
 /* We create a class called Server, since it is a way of organizing the code associated to the server in an
 understandable way in order to understandable in order to simplify the operation of our program. In addition, it is
 necessary to take into account that in this class we can generate objects associated with the connection to the
@@ -61,18 +49,25 @@ entendible con el objetivo de simplificar el funcionamiento de nuestro programa.
 en esta clase se pueden generar objetos de asociados a la conexión hacia el servidor y acceder a métodos como listen,
 routes entre otros, cada uno con sus características y funciones concretas. */
 class Server {
+    /* Private attribute corresponding to an Express application. */
+    /* Atributo privado correspondiente a una aplicación de Express. */
+    app;
+    /* Private attribute that stores the connection port to the Express server. */
+    /* Atributo privado que almacena el puerto de conexión al servidor de Express. */
+    port;
+    /* Private object that records each of the files in the route folder as available routes. */
+    /* Objeto privado que registra cada uno de los archivos de la carpeta de rutas como rutas disponibles. */
+    apiPaths = {
+        categories: '/api/categories',
+        typeOfVehicles: '/api/typeOfVehicles',
+        subCategories: '/api/subCategories',
+        categoriesHasTypeOfVehicles: '/api/categoriesHasTypeOfVehicles',
+        categoriesHasSubcategories: '/api/categoriesHasSubcategories',
+    };
     constructor() {
-        /* Private object that records each of the files in the route folder as available routes. */
-        /* Objeto privado que registra cada uno de los archivos de la carpeta de rutas como rutas disponibles. */
-        this.apiPaths = {
-            categories: '/api/categories',
-            typeOfVehicles: '/api/typeOfVehicles',
-            subCategories: '/api/subCategories',
-            categoriesAsTypeOfVehicles: '/api/categoriesAsTypeOfVehicles',
-        };
         /* Initializing the app attribute with the express library. */
         /* Inicializando el atributo de la aplicación con la biblioteca express. */
-        this.app = (0, express_1.default)();
+        this.app = express();
         /* The port attribute is initialized to indicate the port where the server will be executed. */
         /* Se inicializa el atributo de puerto para indicar el puerto donde se ejecutará el servidor. */
         // @ts-ignore
@@ -89,33 +84,31 @@ class Server {
     }
     /* A method that performs the connection and authentication in the database. */
     /* Un método que realiza la conexión y autenticación en la base de datos. */
-    dbConnection() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                /* Used to authenticate the connection to the database. */
-                /* Se utiliza para autenticar la conexión a la base de datos. */
-                yield connection_1.default.authenticate();
-                /* Used to synchronize the database with the models. */
-                /* Se utiliza para sincronizar la base de datos con los modelos. */
-                yield connection_1.default.sync();
-                // @ts-ignore
-                yield Promise.all([Associations_1.Categories.bulkCreate(Categories_1.default)]);
-                console.log('Successful database connection');
-            }
-            catch (e) {
-                console.log(e);
-            }
-        });
+    async dbConnection() {
+        try {
+            /* Used to authenticate the connection to the database. */
+            /* Se utiliza para autenticar la conexión a la base de datos. */
+            await db.authenticate();
+            /* Used to synchronize the database with the models. */
+            /* Se utiliza para sincronizar la base de datos con los modelos. */
+            await db.sync();
+            // @ts-ignore
+            await Promise.all([Categories.bulkCreate(categories), Subcategories.bulkCreate(subCategories)]);
+            console.log('Successful database connection');
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
     /* A method that is used to enable the use of CORS and requests to the server. */
     /* Se utiliza para habilitar el uso de CORS y solicitudes al servidor. */
     middlewares() {
         /* CORS and server requests are enabled. */
         /* Se habilitan CORS y solicitudes al servidor. */
-        this.app.use((0, cors_1.default)());
+        this.app.use(cors());
         /*  The reading of requests and responses in json format to the server through the body is enabled. */
         /* Se habilita la lectura de solicitudes y respuestas en formato json hacia el servidor a través del body. */
-        this.app.use(express_1.default.json());
+        this.app.use(express.json());
     }
     /**
      * The listen function is a method of the App class that creates a server that listens for requests on the port
@@ -137,13 +130,14 @@ class Server {
      * Esta función se utiliza para configurar las rutas para la API
      */
     routes() {
-        this.app.use(this.apiPaths.categories, categoriesRouter_1.default);
-        this.app.use(this.apiPaths.typeOfVehicles, typeOfVehiclesRouter_1.default);
-        this.app.use(this.apiPaths.subCategories, subCategoriesRouter_1.default);
-        this.app.use(this.apiPaths.categoriesAsTypeOfVehicles, Categories_TypeOfVehicleRouter_1.default);
+        this.app.use(this.apiPaths.categories, categoriesRouter);
+        this.app.use(this.apiPaths.typeOfVehicles, typeOfVehicleRouter);
+        this.app.use(this.apiPaths.subCategories, subCategoriesRouter);
+        this.app.use(this.apiPaths.categoriesHasTypeOfVehicles, categories_TypeOfVehicleRouter);
+        this.app.use(this.apiPaths.categoriesHasSubcategories, categoriesHasSubCategoriesRouter);
     }
 }
 /* Exporting the Server class to be used in other files. */
 /* Exportación de la clase Servidor para ser utilizada en otros archivos. */
-exports.default = Server;
+export default Server;
 //# sourceMappingURL=Server.js.map

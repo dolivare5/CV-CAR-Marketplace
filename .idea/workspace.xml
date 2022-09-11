@@ -4,53 +4,83 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="En este commit se desarrolló un modelo de Tipos De Vehículos con Sequelize, se definieron cada una de las rutas y controladores para este modelo.">
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Categories_TypeOfVehicle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Categories_TypeOfVehicle.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/Categories_TypeOfVehicleRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/Categories_TypeOfVehicleRouter.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controllers/categoriesTypeOfVehicleController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/Categories_TypeOfVehicle.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/Categories_TypeOfVehicleRouter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes1.xml" afterDir="false" />
+    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="Se cambió la estructura de los modelos, antes se exportaba un objeto, ahora se exporta una clase. Esto hace que realizar Asociaciones sea mucho más fácil. Además, se creó un modelo para asociar las categorías a los tipos de vehículos y con ello cada una de las rutas.">
+      <change afterPath="$PROJECT_DIR$/backend/build/controllers/categories_has_SubcategoriesController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/controllers/categories_has_SubcategoriesController.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/Categories_has_SubCategories.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/Categories_has_SubCategories.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/routes/CategoriesHasSubCategoriesRouter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/routes/CategoriesHasSubCategoriesRouter.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controllers/categories_has_SubcategoriesController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Categories_has_SubCategories.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/CategoriesHasSubCategoriesRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_09_2022_8_08_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_09_2022_8_08_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriaController.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriaController.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoryController.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoryController.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehicleController.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehicleController.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/db/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/db/connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/db/connection.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/db/connection.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/index.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Associations.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Associations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Associations.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Associations.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Categories.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Categories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Categories.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Categories_TypeOfVehicle.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Categories_TypeOfVehicle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Categories_TypeOfVehicle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Categories_TypeOfVehicle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Category.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Category.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Mayorista.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Mayorista.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Server.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Subcategories.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Subcategories.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Subcategories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Subcategories.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/TypeOfVehicle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/TypeOfVehicle.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/TypeOfVehicles.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/TypeOfVehicles.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/TypeOfVehicles.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/TypeOfVehicles.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/Categories_TypeOfVehicleRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/Categories_TypeOfVehicleRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/Categories_TypeOfVehicleRouter.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/Categories_TypeOfVehicleRouter.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/categoriaRouter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/categoriaRouter.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/routes/categoriesRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/categoriesRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/routes/categoriesRouter.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/categoriesRouter.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/categoryRouter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/categoryRouter.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/routes/subCategoriesRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/subCategoriesRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/routes/subCategoriesRouter.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/subCategoriesRouter.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/typeOfVehicleRouter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/typeOfVehicleRouter.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/routes/typeOfVehiclesRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/typeOfVehiclesRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/routes/typeOfVehiclesRouter.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/typeOfVehiclesRouter.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/usuarioRouter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/routes/usuarioRouter.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/services/Mayorista.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/services/Mayorista.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/categoriesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/categoriesController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/categoriesTypeOfVehicleController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/categoriesTypeOfVehicleController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/subcategoriesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/subcategoriesController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db/connection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/connection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/Associations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Associations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Categories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Categories.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/Server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Subcategories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Subcategories.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/TypeOfVehicles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/TypeOfVehicles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/categoriesRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/categoriesRouter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/subCategoriesRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/subCategoriesRouter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/typeOfVehiclesRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/typeOfVehiclesRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +110,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
     <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" root0="FORCE_HIGHLIGHTING" />
@@ -117,14 +154,16 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;,
     &quot;ts.external.directory.path&quot;: &quot;D:\\Datos Deiber\\CVCAR\\CVCAR-Marketplace\\backend\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.rename.search.for.dynamic.occurrences&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="Push.Settings">
     <force-push-targets>
       <force-push-target remote-path="origin" branch="developers" />
+      <force-push-target remote-path="origin" branch="staging" />
     </force-push-targets>
   </component>
   <component name="RecentsManager">
@@ -184,6 +223,13 @@
       <workItem from="1662567612783" duration="5889000" />
       <workItem from="1662585858753" duration="7448000" />
       <workItem from="1662649809364" duration="13795000" />
+      <workItem from="1662734239148" duration="7739000" />
+      <workItem from="1662748647927" duration="839000" />
+      <workItem from="1662755842022" duration="10512000" />
+      <workItem from="1662860226436" duration="3567000" />
+      <workItem from="1662864228050" duration="1189000" />
+      <workItem from="1662909981994" duration="4636000" />
+      <workItem from="1662916277440" duration="3552000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres.">
       <created>1661266084712</created>

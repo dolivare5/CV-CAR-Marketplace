@@ -37,16 +37,21 @@ import typeOfVehicleRouter from "../routes/typeOfVehiclesRouter";
 /* Importando el subCategoriesRouter desde la carpeta de rutas. */
 import subCategoriesRouter from "../routes/subCategoriesRouter";
 
-/* Importing the categories from the Categories.ts file. */
-/* Importando las categorías del archivo Categories.ts. */
+/* Importing the data from the files Categories and Subcategories. */
+/* Importación de los datos de los archivos Categorías y Subcategorías. */
 import categories from "./Categories";
+import subCategories from "./Subcategories";
 
-/* Importing the Categories model from the Associations.ts file. */
-/* Importando el modelo de Categorías del archivo Associations.ts. */
-import {Categories} from "./Associations";
+
+/* Importing the models from the Associations file. */
+/* Importación de los modelos desde el archivo de Asociaciones. */
+import {Categories, Subcategories} from "./Associations";
 
 /* Importing the categories_TypeOfVehicleRouter from the routes folder. */
 import categories_TypeOfVehicleRouter from "../routes/Categories_TypeOfVehicleRouter";
+import categoriesHasSubCategoriesRouter from "../routes/CategoriesHasSubCategoriesRouter";
+
+
 
 /* We create a class called Server, since it is a way of organizing the code associated to the server in an
 understandable way in order to understandable in order to simplify the operation of our program. In addition, it is
@@ -73,7 +78,8 @@ class Server {
         categories : '/api/categories',
         typeOfVehicles : '/api/typeOfVehicles',
         subCategories : '/api/subCategories',
-        categoriesAsTypeOfVehicles : '/api/categoriesAsTypeOfVehicles',
+        categoriesHasTypeOfVehicles : '/api/categoriesHasTypeOfVehicles',
+        categoriesHasSubcategories : '/api/categoriesHasSubcategories',
     };
     
     constructor() {
@@ -113,7 +119,7 @@ class Server {
             /* Se utiliza para sincronizar la base de datos con los modelos. */
             await db.sync();
             // @ts-ignore
-            await Promise.all([Categories.bulkCreate(categories)]);
+            await Promise.all([Categories.bulkCreate(categories), Subcategories.bulkCreate(subCategories)]);
             console.log('Successful database connection');
         }catch (e){
             console.log(e);
@@ -158,7 +164,8 @@ class Server {
         this.app.use( this.apiPaths.categories, categoriesRouter );
         this.app.use( this.apiPaths.typeOfVehicles, typeOfVehicleRouter );
         this.app.use( this.apiPaths.subCategories, subCategoriesRouter );
-        this.app.use( this.apiPaths.categoriesAsTypeOfVehicles, categories_TypeOfVehicleRouter );
+        this.app.use( this.apiPaths.categoriesHasTypeOfVehicles, categories_TypeOfVehicleRouter );
+        this.app.use( this.apiPaths.categoriesHasSubcategories, categoriesHasSubCategoriesRouter );
     }
 
 }

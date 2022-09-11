@@ -1,30 +1,15 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.postSubCategory = exports.putSubCategory = exports.getSubCategories = exports.getSubCategory = void 0;
 /* The next code is importing the check and validationResult functions from the express-validator package. */
 /* El código siguiente está importando las funciones check y validationResult del paquete express-validator. */
-const express_validator_1 = require("express-validator");
+import { check, validationResult } from 'express-validator';
 /* Importing the QueryTypes from the sequelize package. */
 /* Importación de QueryTypes desde el paquete Sequelize. */
-const sequelize_1 = require("sequelize");
+import { QueryTypes } from "sequelize";
 /* Importing the connection.ts file from the db folder. */
 /* Importando el archivo connection.ts desde la carpeta db. */
-const connection_1 = __importDefault(require("../db/connection"));
+import db from "../db/connection";
 /* Importing the Subcategories model from the models folder. */
 /* Importación del modelo Subcategorías desde la carpeta de modelos. */
-const Subcategories_1 = __importDefault(require("../models/Subcategories"));
+import Subcategories from "../models/Subcategories";
 /**
  * Encuentra todas las subcategorías que tienen un estado de 1 y las envía al cliente
  * @param {Request} _req - Solicitud: Esta es la solicitud que el cliente envía al servidor.
@@ -37,18 +22,18 @@ const Subcategories_1 = __importDefault(require("../models/Subcategories"));
 * @param {Response} res - Response: This is the response that will be sent to the client.
 * @returns a response to the client with the subcategories registered in the system.
 */
-const getSubCategories = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSubCategories = async (_req, res) => {
     try {
         /* Finding all the subcategories that have a status of 1. */
         /* Encontrar todas las subcategorías que tienen un estado de 1. */
-        const subCategories = yield Subcategories_1.default.findAll({
+        const subCategories = await Subcategories.findAll({
             attributes: ['SubCat_Name', 'SubCat_Description'],
             where: { SubCat_Status: 1 }
         });
         /* Checking if there are any subcategories in the database. If there are none, it will send a message to the user. */
         /* Comprobando si hay subcategorías en la base de datos. Si no hay ninguno, enviará un mensaje al usuario. */
         if (!subCategories) {
-            res.status(200).send({ errors: [{ msg: 'No hay subcategorías registradas en el sistema' }] });
+            return res.status(200).send({ errors: [{ msg: 'No hay subcategorías registradas en el sistema' }] });
         }
         /* Sending a response to the client with the subcategories registered in the system.*/
         /* Envío de respuesta al cliente con las subcategorías registradas en el sistema. */
@@ -67,8 +52,7 @@ const getSubCategories = (_req, res) => __awaiter(void 0, void 0, void 0, functi
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.getSubCategories = getSubCategories;
+};
 /**
  * It receives a request from the client, searches for a subcategory by its main key, if it finds it, it sends a response with the name and description of the subcategory.
  * with the name and description of the subcategory, if not found, it sends a response with a message saying that the subcategory does not exist.
@@ -85,20 +69,20 @@ exports.getSubCategories = getSubCategories;
  * @param {Response} res - Respuesta: Esta es la respuesta que el servidor enviará al cliente.
  * @returns Se está devolviendo una subcategoría.
  */
-const getSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSubCategory = async (req, res) => {
     try {
         /* Destructuring of the SubCat_Id of the req.params object. */
         /* Desestructuración del SubCat_Id del objeto req.params. */
         const { SubCat_Id } = req.params;
         /* Finding a subcategory by its primary key. */
         /* Encontrar una subcategoría por su clave principal. */
-        const subCategory = yield Subcategories_1.default.findByPk(SubCat_Id);
+        const subCategory = await Subcategories.findByPk(SubCat_Id);
         /* Checking if the subCategory is empty or not. If it is empty, it will send a response with a status of 200 and an
         error message. */
         /* Comprobando si la subcategoría está vacía o no. Si está vacío, enviará una respuesta con un estado de 200 y un
         mensaje de error. */
         if (!subCategory) {
-            res.status(200).send({ errors: [{ msg: 'El código ingresado no corresponde a ninguna subcategoría  ' }] });
+            return res.status(200).send({ errors: [{ msg: 'El código ingresado no corresponde a ninguna subcategoría  ' }] });
         }
         /* Destructuring of the SubCategory object to extract the name and description of the subcategory. */
         /* Desestructuración del objeto SubCategory para extraer el nombre y la descripción de la subcategoría. */
@@ -106,7 +90,7 @@ const getSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const { SubCat_Name, SubCat_Description } = subCategory;
         /* The above code is a response from the server to the client with the requested subcategory information requested. */
         /* El código anterior es una respuesta del servidor al cliente con la información de la subcategoría solicitada. */
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "getSubCategory",
@@ -126,8 +110,7 @@ const getSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.getSubCategory = getSubCategory;
+};
 /**
      * The function validates the required fields of the subcategory table, checks if the subcategory already exists in
      * the database, creates a new object or instance based on the subcategory from the subcategory template, saves the
@@ -149,7 +132,7 @@ exports.getSubCategory = getSubCategory;
  * @param {Response} res - Respuesta: el objeto de respuesta que se enviará al cliente.
  * @returns Una función que recibe dos parámetros, el primero es la solicitud y el segundo es la respuesta.
  */
-const postSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postSubCategory = async (req, res) => {
     /* The data that comes in the body is extracted through the request. */
     /* Se extraen los datos que vienen en el body a través del request. */
     const { body } = req;
@@ -163,15 +146,15 @@ const postSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         /* Validating the fields of the subcategory. */
         /* Validación de los campos de la subcategoría. */
-        const resultsValidations = yield validateFieldsSubCategory(req, res);
+        const resultsValidations = await validateFieldsSubCategory(req, res);
         /* Checking if the result is empty. If it is not empty, it will send the errors to the client. */
         /* Comprobando si el resultado está vacío. Si no está vacío, enviará los errores al cliente. */
         if (resultsValidations.length > 0) {
-            res.status(200).send({ errores: resultsValidations });
+            return res.status(200).send({ errores: resultsValidations });
         }
         /* Checking if the subcategory already exists in the database. */
         /* Comprobando si la subcategoría ya existe en la base de datos. */
-        const existSubCategory = yield Subcategories_1.default.findOne({
+        const existSubCategory = await Subcategories.findOne({
             where: {
                 SubCat_Name: body.SubCat_Name
             }
@@ -189,17 +172,17 @@ const postSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         /* Creating a new instance of the Subcategories class. */
         /* Creando una nueva instancia de la clase Subcategorías. */
-        const subCategory = new Subcategories_1.default(body);
+        const subCategory = new Subcategories(body);
         /* Saving the subcategory in the database. */
         /* Guardando la subcategoría en la base de datos. */
-        yield subCategory.save();
+        await subCategory.save();
         /* Finally, if there is no problem, the information is returned through a json object.*/
         /* Finalmente, si no hay ningún problema se retorna la información a través de un objeto json.*/
         // @ts-ignore
         const { SubCat_Name, SubCat_Description } = subCategory;
         /* Sending a response to the client with the data of the registered subcategory. */
         /* Envío de respuesta al cliente con los datos de la subcategoría registrada. */
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "SubCategoría registrada correctamente.",
@@ -216,8 +199,7 @@ const postSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.postSubCategory = postSubCategory;
+};
 /**
      * Updates a subcategory in the database.
      * @param {Request} req - Request: It is the request that the client sends to the server.
@@ -230,30 +212,30 @@ exports.postSubCategory = postSubCategory;
      * @param {Response} res - Respuesta: Es la respuesta que el servidor enviará al cliente.
      * @returns la información de la subcategoría registrada.
  */
-const putSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const putSubCategory = async (req, res) => {
     /* The next code is updating a subcategory in the database. */
     /* El código siguiente está actualizando una subcategoría en la base de datos. */
     try {
         /* The id received in the request is extracted. */
         /* Se extrae el id que se recibe en la request. */
         const { SubCat_Id } = req.params;
-        /* Find a subcategory by its main key in the database. */
-        /* Encontrar una subcategoría por su clave principal en la base de datos. */
-        const subCategory = yield Subcategories_1.default.findByPk(SubCat_Id);
-        /* Checking if the subCategory is not null, if it is not null, it will return an error message. */
-        /* Al verificar si la subcategoría no es nula, si no es nula, devolverá un mensaje de error. */
-        if (!subCategory) {
-            return res.json({ errors: [{ msg: 'El código ingresado no corresponde a ninguna subcategoría  ' }] });
-        }
         /* Validating the fields of the subcategory. */
         /* Validación de los campos de la subcategoría. */
-        let resultsValidations = yield validateFieldsSubCategory(req, res);
+        const resultsValidations = await validateFieldsSubCategory(req, res);
         /* Validating the data that is being sent to the server. */
         /* Validación de los datos que se envían al servidor. */
         if (resultsValidations.length > 0) {
             /* If there is an error, return a json array with each of the validations that were not fulfilled. */
             /* De haber un error, retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
             return res.json({ errores: resultsValidations });
+        }
+        /* Find a subcategory by its main key in the database. */
+        /* Encontrar una subcategoría por su clave principal en la base de datos. */
+        const subCategory = await Subcategories.findByPk(SubCat_Id);
+        /* Checking if the subCategory is not null, if it is not null, it will return an error message. */
+        /* Al verificar si la subcategoría no es nula, si no es nula, devolverá un mensaje de error. */
+        if (!subCategory) {
+            return res.json({ errors: [{ msg: 'El código ingresado no corresponde a ninguna subcategoría  ' }] });
         }
         /* If there are no problems with the previous validations, we proceed to extract each of the data to be
         modified in the database to be modified in the database.*/
@@ -262,7 +244,7 @@ const putSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const { SubCat_Name, SubCat_Description, SubCat_Status } = req.body;
         /* Checking if there is a subcategory with the same name as the one being edited. */
         /* Comprobando si existe una subcategoría con el mismo nombre que la que se está editando. */
-        const existSubCategoryRepeated = yield connection_1.default.query(`SELECT * FROM "Subcategories" sc WHERE "SubCat_Id" != ${SubCat_Id} AND "SubCat_Name" = '${SubCat_Name}'`, { type: sequelize_1.QueryTypes.SELECT });
+        const existSubCategoryRepeated = await db.query(`SELECT * FROM "Subcategories" sc WHERE "SubCat_Id" != ${SubCat_Id} AND "SubCat_Name" = '${SubCat_Name}'`, { type: QueryTypes.SELECT });
         /* The next code is checking if the subcategory already exists in the database. */
         /* El código siguiente verifica si la subcategoría ya existe en la base de datos. */
         if (existSubCategoryRepeated.length > 0) {
@@ -273,10 +255,10 @@ const putSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         subCategory.set({ SubCat_Name, SubCat_Description, SubCat_Status });
         /* Saving the subcategory in the database. */
         /* Guardando la subcategoría en la base de datos. */
-        yield subCategory.save();
+        await subCategory.save();
         /* Finally, if there is no problem, the information is returned through a json object.*/
         /* Finalmente, si no hay ningún problema se retorna la información a través de un objeto json.*/
-        res.status(200).send({
+        return res.status(200).send({
             response: [
                 {
                     msg: "postSubCategory",
@@ -290,26 +272,32 @@ const putSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
         /* Envío de un código de estado 500 y un mensaje al usuario. */
         return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
-});
-exports.putSubCategory = putSubCategory;
+};
+/**
+ * Validates that the name field is not empty.
+ * @param {Request} req - Request: the request object.
+ * @param {Response} _res - Response: This is the response object to be returned to the client.
+ * @returns The result of the validation of the request body.
+ */
 /**
      * Valida que el campo de nombre no esté vacío
      * @param {Request} req - Solicitud: el objeto de la solicitud.
      * @param {Response} _res - Respuesta: Este es el objeto de respuesta que se devolverá al cliente.
      * @returns El resultado de la validación del cuerpo de la solicitud.
 */
-/**
-     * Validates that the name field is not empty.
-     * @param {Request} req - Request: the request object.
-     * @param {Response} _res - Response: This is the response object to be returned to the client.
-     * @returns The result of the validation of the request body.
- */
-const validateFieldsSubCategory = (req, _res) => __awaiter(void 0, void 0, void 0, function* () {
+const validateFieldsSubCategory = async (req, _res) => {
     /* Checking if the field is empty or not. */
     /* Comprobando si el campo está vacío o no. */
-    yield (0, express_validator_1.check)('SubCat_Name').notEmpty().withMessage("El nombre de la subcategoría es Obligatorio").run(req);
+    await check('SubCat_Name')
+        .notEmpty().withMessage("Subcategoría no valido.")
+        .isString().withMessage("La Subcategoría debe ser un texto válido.")
+        .isLength({ min: 3, max: 15 }).withMessage("La Subcategoría debe tener entre 3 y 25 caracteres.")
+        .run(req);
     /* Se retorna el resultado de la validación del cuerpo de la solicitud. */
     /* The result of the validation of the request body is returned. */
-    return (0, express_validator_1.validationResult)(req).array();
-});
+    return validationResult(req).array();
+};
+/* Exporting the functions getSubCategory, getSubCategories, putSubCategory, and postSubCategory. */
+/* Exportando las funciones getSubCategory, getSubCategories, putSubCategory y postSubCategory. */
+export { getSubCategory, getSubCategories, putSubCategory, postSubCategory };
 //# sourceMappingURL=subcategoriesController.js.map
