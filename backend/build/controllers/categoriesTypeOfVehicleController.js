@@ -44,7 +44,7 @@ const getCategoriesAndTypeVehiclesAssociated = async (_req, res) => {
         /* Comprobando si se encontraron o no categorías asociadas a tipos de vehículos. */
         /* Checking whether or not categories associated with vehicle types were found. */
         if (!categoriesAsTypeVehicles) {
-            return res.status(200).send({ errors: [{ msg: 'No hay categorías asociadas a tipos de vehículos registradas en el sistema' }] });
+            return res.status(400).send({ errors: [{ msg: 'No hay categorías asociadas a tipos de vehículos registradas en el sistema' }] });
         }
         /* Returning a response to the user. */
         /* Devolviendo una respuesta al usuario. */
@@ -61,7 +61,7 @@ const getCategoriesAndTypeVehiclesAssociated = async (_req, res) => {
         console.log(e);
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
+        return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
 };
 /**
@@ -93,11 +93,11 @@ const getVehiclesTypesAssociatedWithCategory = async (req, res) => {
         /* Checking if there are no vehicle types associated with the entered category. */
         /* Comprobando si no existen tipos de vehículos asociados a la categoría ingresada. */
         if (!typeOfVehicles) {
-            return res.status(200).send({ errors: [{ msg: 'No hay tipos de vehículos asociados a la categoría ingresada' }] });
+            return res.status(400).send({ errors: [{ msg: 'No hay tipos de vehículos asociados a la categoría ingresada' }] });
         }
         /* Returning a response to the user. */
         /* Devolviendo una respuesta al usuario. */
-        return res.status(200).send({
+        return res.status(400).send({
             response: [
                 {
                     msg: "getVehiclesTypesAssociatedWithCategory",
@@ -110,7 +110,7 @@ const getVehiclesTypesAssociatedWithCategory = async (req, res) => {
         console.log(e);
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
+        return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
 };
 /**
@@ -141,7 +141,7 @@ const getCategoriesAssociatedWithTypeVehicle = async (req, res) => {
         /* Checking if there are no categories associated with the type of vehicle entered. */
         /* Comprobando si no existen categorías asociadas al tipo de vehículo ingresado. */
         if (!categories) {
-            return res.status(200).send({ errors: [{ msg: 'No hay categorías asociadas al tipo de vehículo ingresado' }] });
+            return res.status(400).send({ errors: [{ msg: 'No hay categorías asociadas al tipo de vehículo ingresado' }] });
         }
         /* Returning a response to the user. */
         /* Devolviendo una respuesta al usuario. */
@@ -158,7 +158,7 @@ const getCategoriesAssociatedWithTypeVehicle = async (req, res) => {
         console.log(e);
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
+        return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
 };
 /**
@@ -237,7 +237,7 @@ const postCategoriesAndTypeVehiclesAssociated = async (req, res) => {
         console.log(e);
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({ errores: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
+        return res.status(500).send({ errors: { msg: 'Ha ocurrido un error, inténtelo más tarde.' } });
     }
 };
 /**

@@ -74,7 +74,7 @@ const getCategoriesHasSubCategoriesAssociated = async (_req: Request, res: Respo
     
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
@@ -126,7 +126,7 @@ const getCategoriesAssociatedWithSubcategory = async (req: Request, res: Respons
         
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
@@ -180,7 +180,7 @@ const getSubCategoriesAssociatedWithCategory = async (req: Request, res: Respons
         
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
@@ -249,7 +249,7 @@ const postCategoriesHasSubCategoriesAssociated = async (req: Request, res: Respo
     
         /* Sending a status code 500 and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 

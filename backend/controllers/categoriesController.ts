@@ -55,7 +55,7 @@ const getCategories = async (_req: Request, res: Response) => {
             de 200 y un mensaje que dice que no hay categorías en el sistema.
         */
         if(!categories){
-            return res.status(200).send({ errors: [ { msg: 'No hay categorías registradas en el sistema'} ]});
+            return res.status(400).send({ errors: [ { msg: 'No hay categorías registradas en el sistema'} ]});
         }
         
         /* Finally I return the information of all the categories. */
@@ -121,7 +121,7 @@ const getCategory = async (req: Request, res: Response) => {
         /* Checking if the category exists. */
         /* Comprobando si la categoría existe. */
         if(!category){
-            return res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
+            return res.status(400).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
         }
         /* Finalmente retorno la información de la categoría registrada*/
         /* Finally I return the information of the registered category.*/
@@ -184,7 +184,7 @@ const postCategory = async (req: Request, res: Response) => {
         if (resultsValidations.length > 0) {
             /* If there is an error I return a json array with each of the validations that were not met. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            return res.status(200).send({errors: resultsValidations});
+            return res.status(400).send({errors: resultsValidations});
         }
     
         /* It is checked if there is or is not a Category with the name that is received. */
@@ -198,7 +198,7 @@ const postCategory = async (req: Request, res: Response) => {
         /* If there is a category that is equal to the entered one, a message with that information is returned. */
         /* Si existe una categoría que sea igual a la ingresada se retorna un mensaje con dicha información.*/
         if (existCategory) {
-            return res.status(400).json({
+            return res.status(400).send({
                 errors: [
                     {
                         msg: "La Categoría ingresada ya se encuentra registrada"
@@ -265,24 +265,25 @@ const putCategory = async (req: Request, res: Response) => {
         /* Desestructuración del Cat_Id del objeto req.params. */
         const {Cat_Id} = req.params;
         
-        /* The database is queried to verify whether the received id exists. */
-        /* Se consulta la base de datos para verificar si existe el id recibido. */
-        const category:Categories|null = await Categories.findByPk(Cat_Id);
-        
-        /* Checking if the category exists. */
-        /* Comprobando si la categoría existe. */
-        if(!category){
-            return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
-        }
-        
         /* Checks whether the result array in which all validations are stored is empty or not. */
         /* Verifica si el arreglo resultado en el cual se guardan todas las validaciones está vacío o no */
         const resultsValidations = await validateFieldsCategory(req, res);
         if (resultsValidations.length > 0) {
             /* De haber un error, retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
             /* If there is an error I return a json array with each of the validations that were not met. */
-            return res.json({errors: resultsValidations});
+            return res.status(400).send({errors: resultsValidations});
         }
+    
+        /* The database is queried to verify whether the received id exists. */
+        /* Se consulta la base de datos para verificar si existe el id recibido. */
+        const category:Categories|null = await Categories.findByPk(Cat_Id);
+    
+        /* Checking if the category exists. */
+        /* Comprobando si la categoría existe. */
+        if(!category){
+            return res.status(400).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna categoría  '} ]});
+        }
+        
         /* If there are no problems, we proceed to extract each of the data to be modified in the database. */
         /* Si noy problemas, se procede a extraer cada uno de los datos que se modificaran en la base de datos. */
         
@@ -308,7 +309,7 @@ const putCategory = async (req: Request, res: Response) => {
         /* If there is no category registered under that name, the registration will proceed. */
         /* Si no existe una categoría registrada con ese nombre se procede con el registro. */
         if (existCategoryRepeated.length >0){
-            return res.status(200).send({ errors: [ { msg: 'Lo sentimos, la categoría ingresada ya se encuentra registrada'}]});
+            return res.status(400).send({ errors: [ { msg: 'Lo sentimos, la categoría ingresada ya se encuentra registrada'}]});
         }
         
         /* If there are no problems, the category object is updated with the data received in the body. */

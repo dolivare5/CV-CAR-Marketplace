@@ -39,6 +39,7 @@ import { Categories, Subcategories } from "./Associations";
 /* Importing the categories_TypeOfVehicleRouter from the routes folder. */
 import categories_TypeOfVehicleRouter from "../routes/Categories_TypeOfVehicleRouter";
 import categoriesHasSubCategoriesRouter from "../routes/CategoriesHasSubCategoriesRouter";
+import automobilesBrandsRouter from "../routes/automobilesBrandsRouter";
 /* We create a class called Server, since it is a way of organizing the code associated to the server in an
 understandable way in order to understandable in order to simplify the operation of our program. In addition, it is
 necessary to take into account that in this class we can generate objects associated with the connection to the
@@ -63,6 +64,7 @@ class Server {
         subCategories: '/api/subCategories',
         categoriesHasTypeOfVehicles: '/api/categoriesHasTypeOfVehicles',
         categoriesHasSubcategories: '/api/categoriesHasSubcategories',
+        automobilesBrands: '/api/brands',
     };
     constructor() {
         /* Initializing the app attribute with the express library. */
@@ -135,6 +137,7 @@ class Server {
         this.app.use(this.apiPaths.subCategories, subCategoriesRouter);
         this.app.use(this.apiPaths.categoriesHasTypeOfVehicles, categories_TypeOfVehicleRouter);
         this.app.use(this.apiPaths.categoriesHasSubcategories, categoriesHasSubCategoriesRouter);
+        this.app.use(this.apiPaths.automobilesBrands, automobilesBrandsRouter);
     }
 }
 /* Exporting the Server class to be used in other files. */

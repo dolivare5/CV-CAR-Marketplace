@@ -46,7 +46,7 @@ const getSubCategories = async (_req: Request, res: Response) => {
         /* Checking if there are any subcategories in the database. If there are none, it will send a message to the user. */
         /* Comprobando si hay subcategorías en la base de datos. Si no hay ninguno, enviará un mensaje al usuario. */
         if(!subCategories){
-            return res.status(200).send({ errors: [ { msg: 'No hay subcategorías registradas en el sistema'} ]});
+            return res.status(400).send({ errors: [ { msg: 'No hay subcategorías registradas en el sistema'} ]});
         }
         
         /* Sending a response to the client with the subcategories registered in the system.*/
@@ -65,7 +65,7 @@ const getSubCategories = async (_req: Request, res: Response) => {
         
         /* Sending a 500 status code and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
@@ -96,12 +96,12 @@ const getSubCategory = async (req: Request, res: Response) => {
         const subCategory:Subcategories|null = await Subcategories.findByPk(SubCat_Id);
     
         
-        /* Checking if the subCategory is empty or not. If it is empty, it will send a response with a status of 200 and an
+        /* Checking if the subCategory is empty or not. If it is empty, it will send a response with a status of 400 and an
         error message. */
-        /* Comprobando si la subcategoría está vacía o no. Si está vacío, enviará una respuesta con un estado de 200 y un
+        /* Comprobando si la subcategoría está vacía o no. Si está vacío, enviará una respuesta con un estado de 400 y un
         mensaje de error. */
         if(!subCategory){
-            return res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna subcategoría  '} ]});
+            return res.status(400).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna subcategoría  '} ]});
         }
     
         /* Destructuring of the SubCategory object to extract the name and description of the subcategory. */
@@ -131,7 +131,7 @@ const getSubCategory = async (req: Request, res: Response) => {
             Envío de un código de estado 500 y un mensaje al usuario.
             Sending a status code 500 and a message to the user.
         */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
     
 }
@@ -179,7 +179,7 @@ const postSubCategory = async (req: Request, res: Response) => {
         /* Checking if the result is empty. If it is not empty, it will send the errors to the client. */
         /* Comprobando si el resultado está vacío. Si no está vacío, enviará los errores al cliente. */
         if (resultsValidations.length > 0) {
-            return res.status(200).send({errores: resultsValidations});
+            return res.status(400).send({errors: resultsValidations});
         }
         
         
@@ -194,7 +194,7 @@ const postSubCategory = async (req: Request, res: Response) => {
         /* The next code is checking if the subcategory already exists in the database. */
         /* El código siguiente verifica si la subcategoría ya existe en la base de datos. */
         if (existSubCategory) {
-            return res.status(400).json({
+            return res.status(400).send({
                 errors: [
                     {
                         msg: "La SubCategoría ingresada ya se encuentra registrada"
@@ -268,7 +268,7 @@ const putSubCategory = async (req: Request, res: Response) => {
         if (resultsValidations.length>0) {
             /* If there is an error, return a json array with each of the validations that were not fulfilled. */
             /* De haber un error, retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            return res.json({errores: resultsValidations});
+            return res.send({errors: resultsValidations});
         }
     
         /* Find a subcategory by its main key in the database. */
@@ -278,7 +278,7 @@ const putSubCategory = async (req: Request, res: Response) => {
         /* Checking if the subCategory is not null, if it is not null, it will return an error message. */
         /* Al verificar si la subcategoría no es nula, si no es nula, devolverá un mensaje de error. */
         if(!subCategory){
-            return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ninguna subcategoría  '} ]});
+            return res.status(400).send({ errors: [ { msg: 'El código ingresado no corresponde a ninguna subcategoría  '} ]});
         }
         
         /* If there are no problems with the previous validations, we proceed to extract each of the data to be
@@ -299,7 +299,7 @@ const putSubCategory = async (req: Request, res: Response) => {
         /* The next code is checking if the subcategory already exists in the database. */
         /* El código siguiente verifica si la subcategoría ya existe en la base de datos. */
         if (existSubCategoryRepeated.length >0){
-            return res.status(200).send({ errors: [ { msg: 'Lo sentimos, la subcategoría ingresada ya se encuentra registrada'}]});
+            return res.status(400).send({ errors: [ { msg: 'Lo sentimos, la subcategoría ingresada ya se encuentra registrada'}]});
         }
         
         
@@ -325,7 +325,7 @@ const putSubCategory = async (req: Request, res: Response) => {
         console.log(e);
         
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 

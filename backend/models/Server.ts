@@ -50,6 +50,7 @@ import {Categories, Subcategories} from "./Associations";
 /* Importing the categories_TypeOfVehicleRouter from the routes folder. */
 import categories_TypeOfVehicleRouter from "../routes/Categories_TypeOfVehicleRouter";
 import categoriesHasSubCategoriesRouter from "../routes/CategoriesHasSubCategoriesRouter";
+import automobilesBrandsRouter from "../routes/automobilesBrandsRouter";
 
 
 
@@ -80,6 +81,7 @@ class Server {
         subCategories : '/api/subCategories',
         categoriesHasTypeOfVehicles : '/api/categoriesHasTypeOfVehicles',
         categoriesHasSubcategories : '/api/categoriesHasSubcategories',
+        automobilesBrands: '/api/brands',
     };
     
     constructor() {
@@ -166,6 +168,7 @@ class Server {
         this.app.use( this.apiPaths.subCategories, subCategoriesRouter );
         this.app.use( this.apiPaths.categoriesHasTypeOfVehicles, categories_TypeOfVehicleRouter );
         this.app.use( this.apiPaths.categoriesHasSubcategories, categoriesHasSubCategoriesRouter );
+        this.app.use( this.apiPaths.automobilesBrands, automobilesBrandsRouter );
     }
 
 }

@@ -45,12 +45,12 @@ const getTypesVehicles = async (_req: Request, res: Response) => {
         });
         
         /* Checking if the variable typeOfVehicles is empty. If it is empty, it will send a response to the client with a
-        status code of 200 and a message saying that there are no types of vehicles registered in the system. */
+        status code of 400 and a message saying that there are no types of vehicles registered in the system. */
         
         /* Comprobando si la variable typeOfVehicles está vacía. Si está vacío, enviará una respuesta al cliente con un
-        código de estado de 200 y un mensaje diciendo que no hay tipos de vehículos registrados en el sistema. */
+        código de estado de 400 y un mensaje diciendo que no hay tipos de vehículos registrados en el sistema. */
         if(!typeOfVehicles){
-            res.status(200).send({ errors: [ { msg: 'No hay tipos de vehículos registrados en el sistema'} ]});
+            res.status(400).send({ errors: [ { msg: 'No hay tipos de vehículos registrados en el sistema'} ]});
         }
         
         /* Finally, I return the information on the types of vehicles registered.  */
@@ -69,7 +69,7 @@ const getTypesVehicles = async (_req: Request, res: Response) => {
         
         /* Sending a 500 status code and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
@@ -96,10 +96,10 @@ const getTypeVehicle  = async (req: Request, res: Response) => {
         /* Se realiza una consulta à la base de datos para extraer el tipo de vehículo que tenga registrado el id que se recibe. */
         const typeOfVehicle : TypeOfVehicles | null = await TypeOfVehicles.findByPk(TypVeh_Id);
     
-        /* Checking if the typeOfVehicle is not null, if it is not null, it will send a response with a status of 200 and a message. */
-        /* Comprobando si typeOfVehicle no es nulo, si no es nulo, enviará una respuesta con un estado de 200 y un mensaje. */
+        /* Checking if the typeOfVehicle is not null, if it is not null, it will send a response with a status of 400 and a message. */
+        /* Comprobando si typeOfVehicle no es nulo, si no es nulo, enviará una respuesta con un estado de 400 y un mensaje. */
         if(!typeOfVehicle){
-            res.status(200).send({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo.  '} ]});
+            res.status(400).send({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo.  '} ]});
         }
         /* Finalmente retorno la información del tipo de vehículo registrado.*/
         /* Finally I return the information of the type of vehicle registered. */
@@ -123,7 +123,7 @@ const getTypeVehicle  = async (req: Request, res: Response) => {
         
         /* Sending a 500 status code and a message to the user. */
         /* Envía un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
     
 }
@@ -155,7 +155,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         if (resultsValidations.length > 0) {
             /* If there is an error I return a json array with each of the validations that were not met. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            return res.status(200).send({errores: resultsValidations});
+            return res.status(400).send({ errors: resultsValidations});
         }
         /* It is checked whether or not there is a vehicle type with the name received. */
         /* Se verifica si existe o no un tipo de vehículo con el nombre recibido. */
@@ -168,7 +168,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         /* If there is a vehicle type that is the same as the one entered, a message is returned with this information. */
         /* De existir un tipo de vehículo que sea el mismo que el ingresado, se retorna un mensaje con esta información. */
         if (existTypeVehicle) {
-            return res.status(400).json({
+            return res.status(400).send({
                 errors: [
                     {
                         msg: "El tipo de vehículo ingresado ya se encuentra registrado"
@@ -206,7 +206,7 @@ const postTypeVehicle = async (req: Request, res: Response) => {
         
         /* Sending a 500 status code and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 
@@ -237,7 +237,7 @@ const putTypeVehicle = async (req: Request, res: Response) => {
         if (resultsValidations.length > 0) {
             /* If there is an error, return a json array with each of the validations that were not fulfilled. */
             /* De haber un error retorno un arreglo json con cada uno de las validaciones que no se cumplieron. */
-            return res.json({errores: resultsValidations});
+            return res.status(400).send({errors: resultsValidations});
         }
     
         /* The database is queried to verify whether the received id exists. */
@@ -247,7 +247,7 @@ const putTypeVehicle = async (req: Request, res: Response) => {
         /* Checking if the typeVehicle is not null, if it is not null, it will return an error message. */
         /* Verificando si typeVehicle no es nulo, si no es nulo, devolverá un mensaje de error. */
         if(!typeVehicle){
-            return res.json({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo. '} ]});
+            return res.status(400).send({ errors: [ { msg: 'El código ingresado no corresponde a ningún tipo de vehículo. '} ]});
         }
     
     
@@ -267,7 +267,7 @@ const putTypeVehicle = async (req: Request, res: Response) => {
         /* If there is a record, it is not allowed to update the record. Otherwise, the record is proceeded with. */
         /* Si existe un registro no se permite actualizar el registro. Caso contrario, se procede con el registro. */
         if (!existTypeVehicleRepeated){
-            return res.status(200).send({ errors: [ { msg: 'Lo sentimos, el tipo de vehículo ingresado ya se encuentra registrado'}]});
+            return res.status(400).send({ errors: [ { msg: 'Lo sentimos, el tipo de vehículo ingresado ya se encuentra registrado'}]});
         }
         
         /* The vehicle type object is updated with the data received in the body. */
@@ -294,7 +294,7 @@ const putTypeVehicle = async (req: Request, res: Response) => {
         
         /* Sending a 500 status code and a message to the user. */
         /* Envío de un código de estado 500 y un mensaje al usuario. */
-        return res.status(500).send({errores: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
+        return res.status(500).send({errors: {msg: 'Ha ocurrido un error, inténtelo más tarde.'}});
     }
 }
 

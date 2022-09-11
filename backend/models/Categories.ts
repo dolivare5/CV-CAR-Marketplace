@@ -19,7 +19,6 @@ información sobre las categorías de los diferentes vehículos asociados al sis
 
 class Categories extends Model {}
 
-// @ts-ignore
 Categories.init({
     /* Cat_Id field refers to the unique identifier of each record or category registered in the database.
     the database. In addition, this field is a primary key, auto incremental, null values are not accepted,
