@@ -4,39 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="Se solucionó el error que hacía que el servidor se detuviera cuando se enviaba como respuesta los resultados de las validaciones. Esto era provocado dado que no se colocaba de manera implícita el return y esto hacía que el código se siguiera ejecutando. Además, se modificó el package.json y el tsconfig.json para transpilar erl código de typescript a una versión más moderna de JS.">
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/automobilesBrandsControllers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/automobilesBrandsControllers.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/automobilesBrandsRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/automobilesBrandsRouter.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/automovilesBrandsRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/automovilesBrandsRouter.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controllers/automobilesBrandsControllers.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/AutomobilesBrands.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/automobilesBrandsRouter.ts" afterDir="false" />
+    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento.">
+      <change afterPath="$PROJECT_DIR$/backend/build/controllers/AutomobilesBrands_has_SubCategoriesController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/controllers/AutomobilesBrands_has_SubCategoriesController.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_SubCategories.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_SubCategories.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_has_SubCategories.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_has_SubCategories.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/routes/AutomobilesBrands_has_SubCategoriesRouter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/routes/AutomobilesBrands_has_SubCategoriesRouter.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controllers/AutomobilesBrands_has_SubCategoriesController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/AutomobilesBrands_has_SubCategories.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/AutomobilesBrands_has_SubCategoriesRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesTypeOfVehicleController.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categories_has_SubcategoriesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categories_has_SubcategoriesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categories_has_SubcategoriesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categories_has_SubcategoriesController.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/models/Categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Categories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/models/Categories.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Categories.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Associations.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Associations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Associations.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Associations.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Server.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/categoriesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/categoriesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/categoriesTypeOfVehicleController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/categoriesTypeOfVehicleController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/categories_has_SubcategoriesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/categories_has_SubcategoriesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/subcategoriesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/subcategoriesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Categories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Categories.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/Associations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Associations.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/Server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Server.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -187,7 +173,7 @@
       <workItem from="1662860226436" duration="3567000" />
       <workItem from="1662864228050" duration="1189000" />
       <workItem from="1662909981994" duration="4636000" />
-      <workItem from="1662916277440" duration="9977000" />
+      <workItem from="1662916277440" duration="12739000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres.">
       <created>1661266084712</created>
@@ -231,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662922158245</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento.">
+      <created>1662931362835</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1662931362835</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,6 +279,7 @@
     <MESSAGE value="En este commit se desarrolló un modelo de Categoría con Sequelize, se definieron cada una de las rutas y controladores para este modelo, Además se creó un archivo para un contenedor con Docker y se registraron algunas variables de entorno. Gran parte del código que se escribió en este Commit está documentado tanto en inglés como en español." />
     <MESSAGE value="En este commit se desarrolló un modelo de Tipos De Vehículos con Sequelize, se definieron cada una de las rutas y controladores para este modelo." />
     <MESSAGE value="Se solucionó el error que hacía que el servidor se detuviera cuando se enviaba como respuesta los resultados de las validaciones. Esto era provocado dado que no se colocaba de manera implícita el return y esto hacía que el código se siguiera ejecutando. Además, se modificó el package.json y el tsconfig.json para transpilar erl código de typescript a una versión más moderna de JS." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se solucionó el error que hacía que el servidor se detuviera cuando se enviaba como respuesta los resultados de las validaciones. Esto era provocado dado que no se colocaba de manera implícita el return y esto hacía que el código se siguiera ejecutando. Además, se modificó el package.json y el tsconfig.json para transpilar erl código de typescript a una versión más moderna de JS." />
+    <MESSAGE value="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento." />
   </component>
 </project>

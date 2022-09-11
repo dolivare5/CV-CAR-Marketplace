@@ -40,17 +40,21 @@ import subCategoriesRouter from "../routes/subCategoriesRouter";
 /* Importing the data from the files Categories and Subcategories. */
 /* Importación de los datos de los archivos Categorías y Subcategorías. */
 import categories from "./Categories";
+
 import subCategories from "./Subcategories";
+
+import automobilesBrands from "./AutomobilesBrands";
 
 
 /* Importing the models from the Associations file. */
 /* Importación de los modelos desde el archivo de Asociaciones. */
-import {Categories, Subcategories} from "./Associations";
+import {Categories, Subcategories, AutomobilesBrands} from "./Associations";
 
 /* Importing the categories_TypeOfVehicleRouter from the routes folder. */
 import categories_TypeOfVehicleRouter from "../routes/Categories_TypeOfVehicleRouter";
 import categoriesHasSubCategoriesRouter from "../routes/CategoriesHasSubCategoriesRouter";
 import automobilesBrandsRouter from "../routes/automobilesBrandsRouter";
+import automobilesBrands_has_SubCategoriesRouter from "../routes/AutomobilesBrands_has_SubCategoriesRouter";
 
 
 
@@ -82,6 +86,7 @@ class Server {
         categoriesHasTypeOfVehicles : '/api/categoriesHasTypeOfVehicles',
         categoriesHasSubcategories : '/api/categoriesHasSubcategories',
         automobilesBrands: '/api/brands',
+        automobilesBrandsHasSubcategories: '/api/brandsHasSubcategories'
     };
     
     constructor() {
@@ -121,7 +126,7 @@ class Server {
             /* Se utiliza para sincronizar la base de datos con los modelos. */
             await db.sync();
             // @ts-ignore
-            await Promise.all([Categories.bulkCreate(categories), Subcategories.bulkCreate(subCategories)]);
+            await Promise.all([Categories.bulkCreate(categories), Subcategories.bulkCreate(subCategories), AutomobilesBrands.bulkCreate(automobilesBrands)]);
             console.log('Successful database connection');
         }catch (e){
             console.log(e);
@@ -169,6 +174,7 @@ class Server {
         this.app.use( this.apiPaths.categoriesHasTypeOfVehicles, categories_TypeOfVehicleRouter );
         this.app.use( this.apiPaths.categoriesHasSubcategories, categoriesHasSubCategoriesRouter );
         this.app.use( this.apiPaths.automobilesBrands, automobilesBrandsRouter );
+        this.app.use( this.apiPaths.automobilesBrandsHasSubcategories, automobilesBrands_has_SubCategoriesRouter );
     }
 
 }

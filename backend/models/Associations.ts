@@ -6,6 +6,7 @@ import Categories from "./Categories";
 /* Importación del modelo TypeOfVehicles del archivo TypeOfVehicles.js. */
 import TypeOfVehicles from "./TypeOfVehicles";
 import Subcategories from "./Subcategories";
+import AutomobilesBrands from "./AutomobilesBrands";
 
 /* Create a many-to-many relationship between Categories and TypeOfVehicles models. */
 /* Crear una relación de muchos a muchos entre los modelos Categories y TypeOfVehicles. */
@@ -19,10 +20,13 @@ Categories.belongsToMany(TypeOfVehicles, {
 Subcategories.belongsToMany(Categories, {
     through: 'Categories_has_SubCategories',
     timestamps: false
-})
+});
+
+AutomobilesBrands.belongsToMany(Subcategories, {
+    through: 'AutomobilesBrands_has_SubCategories',
+    timestamps: false
+});
 
 /* Exporting the Categories model. */
 /* Exportando el modelo de Categorías. */
-export {
-    Categories, Subcategories
-}
+export { Categories, Subcategories, AutomobilesBrands };
