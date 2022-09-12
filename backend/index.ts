@@ -1,8 +1,8 @@
 /*
-    Spanish: La librería dotenv permite registrar y configurar las variables de entorno registradas para este proyecto.
-    
-    English: The dotenv library allows you to register and configure the environment variables registered for this
+    The dotenv library allows you to register and configure the environment variables registered for this
     project.
+    
+    La librería dotenv permite registrar y configurar las variables de entorno registradas para este proyecto.
 */
 import dotenv from "dotenv";
 

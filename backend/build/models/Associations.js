@@ -1,14 +1,28 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Categories = void 0;
-const Categories_1 = __importDefault(require("./Categories"));
-exports.Categories = Categories_1.default;
-const TypeOfVehicles_1 = __importDefault(require("./TypeOfVehicles"));
-Categories_1.default.belongsToMany(TypeOfVehicles_1.default, {
-    through: 'SubCategories_TypeOfVehicles',
+/* Importing the Categories model from the Categories.js file. */
+/* Importando el modelo de categorías del archivo Categories.js. */
+import Categories from "./Categories";
+/* Importing the TypeOfVehicles model from the TypeOfVehicles.js file. */
+/* Importación del modelo TypeOfVehicles del archivo TypeOfVehicles.js. */
+import TypeOfVehicles from "./TypeOfVehicles";
+import Subcategories from "./Subcategories";
+import AutomobilesBrands from "./AutomobilesBrands";
+/* Create a many-to-many relationship between Categories and TypeOfVehicles models. */
+/* Crear una relación de muchos a muchos entre los modelos Categories y TypeOfVehicles. */
+Categories.belongsToMany(TypeOfVehicles, {
+    through: 'Categories_TypeOfVehicles',
     timestamps: false
 });
+/* Creating a many-to-many relationship between the Categories and Subcategories models. */
+/* Crear una relación de muchos a muchos entre los modelos de Categorías y Subcategorías. */
+Subcategories.belongsToMany(Categories, {
+    through: 'Categories_has_SubCategories',
+    timestamps: false
+});
+AutomobilesBrands.belongsToMany(Subcategories, {
+    through: 'AutomobilesBrands_has_SubCategories',
+    timestamps: false
+});
+/* Exporting the Categories model. */
+/* Exportando el modelo de Categorías. */
+export { Categories, Subcategories, AutomobilesBrands };
 //# sourceMappingURL=Associations.js.map

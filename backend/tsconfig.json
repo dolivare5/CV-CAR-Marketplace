@@ -12,10 +12,14 @@
 		
 		/* Language and Environment */
 <<<<<<< HEAD
+<<<<<<< HEAD
 		"target": "es2020",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
 		// "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
 =======
 		"target": "ES6",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+=======
+		"target": "ES2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+>>>>>>> a371580e58408c0315c1357a20f1435ad2170d27
 		//"lib": ["ESNext"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
 >>>>>>> 262b98cf3e1350d7d41f51e898a1e9ea8f934db4
 		// "jsx": "preserve",                                /* Specify what JSX code is generated. */
@@ -31,11 +35,15 @@
 		
 		/* Modules */
 <<<<<<< HEAD
+<<<<<<< HEAD
 		"module": "commonjs",                                /* Specify what module code is generated. */
 		//"rootDir": "./"                                  /* Specify the root folder within your source files. */
 		// "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
 =======
 		"module": "CommonJS",                                /* Specify what module code is generated. */
+=======
+		"module": "ES2022",                                /* Specify what module code is generated. */
+>>>>>>> a371580e58408c0315c1357a20f1435ad2170d27
 		"rootDir": "./",                                  /* Specify the root folder within your source files. */
 		"moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
 >>>>>>> 262b98cf3e1350d7d41f51e898a1e9ea8f934db4

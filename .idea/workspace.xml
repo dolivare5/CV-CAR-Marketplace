@@ -11,49 +11,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="En este commit se desarrolló un modelo de Tipos De Vehículos con Sequelize, se definieron cada una de las rutas y controladores para este modelo.">
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/categoriesController.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/subcategoriesController.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehiclesController.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Associations.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Associations.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Categories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Categories.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Subcategories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/Subcategories.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/TypeOfVehicles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/models/TypeOfVehicles.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/categoriesRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/categoriesRouter.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/subCategoriesRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/subCategoriesRouter.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/typeOfVehiclesRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/build/routes/typeOfVehiclesRouter.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/controllers/subcategoriesController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/Associations.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models/Subcategories.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/categoriesRouter.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/routes/subCategoriesRouter.ts" afterDir="false" />
+    <list default="true" id="91f2de2a-31e9-4840-b6e4-f41e661c314f" name="Changes" comment="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento.">
+      <change afterPath="$PROJECT_DIR$/backend/build/controllers/AutomobilesBrands_has_SubCategoriesController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/controllers/AutomobilesBrands_has_SubCategoriesController.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_SubCategories.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_SubCategories.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_has_SubCategories.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/models/AutomobilesBrands_has_SubCategories.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/routes/AutomobilesBrands_has_SubCategoriesRouter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/build/routes/AutomobilesBrands_has_SubCategoriesRouter.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/controllers/AutomobilesBrands_has_SubCategoriesController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/AutomobilesBrands_has_SubCategories.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/AutomobilesBrands_has_SubCategoriesRouter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoriaController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoriaController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/categoryController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/categoryController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/controllers/typeOfVehicleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/controllers/typeOfVehicleController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/models/Category.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Associations.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Associations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/models/Associations.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Associations.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/models/Server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/Server.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/models/TypeOfVehicle.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/models/TypeOfVehicle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/routes/categoryRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/routes/categoryRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/categoryController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/categoriesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/typeOfVehicleController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Categories.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/Associations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Associations.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/Server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/TypeOfVehicle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/TypeOfVehicles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/categoryRouter.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/typeOfVehicleRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/typeOfVehiclesRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +61,13 @@
     <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/backend/controllers/typeOfVehiclesController.ts" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/backend/db/connection.ts" root0="FORCE_HIGHLIGHTING" />
@@ -105,29 +89,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Project.color&quot;: &quot;49614a&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Datos Deiber/CVCAR/CVCAR-Marketplace/backend/routes&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Datos Deiber\\CVCAR\\CVCAR-Marketplace\\backend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Project.color": "49614a",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "last_opened_file_path": "D:/Datos Deiber/CVCAR/CVCAR-Marketplace/backend/routes",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.typescriptcompiler",
+    "ts.external.directory.path": "D:\\Datos Deiber\\CVCAR\\CVCAR-Marketplace\\backend\\node_modules\\typescript\\lib",
+    "ts.rename.search.for.dynamic.occurrences": "true",
+    "ts.rename.search.for.js.occurrences": "false",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="Push.Settings">
     <force-push-targets>
       <force-push-target remote-path="origin" branch="developers" />
+      <force-push-target remote-path="origin" branch="staging" />
     </force-push-targets>
   </component>
   <component name="RecentsManager">
@@ -182,6 +169,18 @@
       <workItem from="1662255629108" duration="34000" />
       <workItem from="1662343147957" duration="605000" />
       <workItem from="1662387667302" duration="7029000" />
+      <workItem from="1662495474991" duration="1224000" />
+      <workItem from="1662503775957" duration="1172000" />
+      <workItem from="1662567612783" duration="5889000" />
+      <workItem from="1662585858753" duration="7448000" />
+      <workItem from="1662649809364" duration="13795000" />
+      <workItem from="1662734239148" duration="7739000" />
+      <workItem from="1662748647927" duration="839000" />
+      <workItem from="1662755842022" duration="10512000" />
+      <workItem from="1662860226436" duration="3567000" />
+      <workItem from="1662864228050" duration="1189000" />
+      <workItem from="1662909981994" duration="4636000" />
+      <workItem from="1662916277440" duration="12739000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres.">
       <created>1661266084712</created>
@@ -218,7 +217,21 @@
       <option name="project" value="LOCAL" />
       <updated>1662054743090</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Se solucionó el error que hacía que el servidor se detuviera cuando se enviaba como respuesta los resultados de las validaciones. Esto era provocado dado que no se colocaba de manera implícita el return y esto hacía que el código se siguiera ejecutando. Además, se modificó el package.json y el tsconfig.json para transpilar erl código de typescript a una versión más moderna de JS.">
+      <created>1662922158245</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1662922158245</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento.">
+      <created>1662931362835</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1662931362835</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +285,9 @@
     <MESSAGE value="Primer Commit. En este se comenzó a trabajar en el backend con typeScript, Node, Sequelize y Postgres." />
     <MESSAGE value="En este commit se desarrolló un modelo de Categoría con Sequelize, se definieron cada una de las rutas y controladores para este modelo, Además se creó un archivo para un contenedor con Docker y se registraron algunas variables de entorno. Gran parte del código que se escribió en este Commit está documentado tanto en inglés como en español." />
     <MESSAGE value="En este commit se desarrolló un modelo de Tipos De Vehículos con Sequelize, se definieron cada una de las rutas y controladores para este modelo." />
-    <option name="LAST_COMMIT_MESSAGE" value="En este commit se desarrolló un modelo de Tipos De Vehículos con Sequelize, se definieron cada una de las rutas y controladores para este modelo." />
+    <MESSAGE value="Se solucionó el error que hacía que el servidor se detuviera cuando se enviaba como respuesta los resultados de las validaciones. Esto era provocado dado que no se colocaba de manera implícita el return y esto hacía que el código se siguiera ejecutando. Además, se modificó el package.json y el tsconfig.json para transpilar erl código de typescript a una versión más moderna de JS." />
+    <MESSAGE value="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento." />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agregó el modelo de marcas de automobiles con cada una de las rutas y controladores necesarias para el funcionamiento." />
   </component>
 >>>>>>> 262b98cf3e1350d7d41f51e898a1e9ea8f934db4
 </project>
