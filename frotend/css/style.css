@@ -11748,7 +11748,7 @@ textarea.form-control {
 }
 
 .ps-form--account .ps-tab-list li a {
-  font-size: 30px;
+  font-size: 20px;
   color: #666;
   font-weight: 600;
 }
@@ -11756,6 +11756,7 @@ textarea.form-control {
 .ps-form--account .ps-tab-list li.active a {
   color: #000;
 }
+
 
 .ps-form--account .form-forgot {
   position: relative;
