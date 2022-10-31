@@ -586,6 +586,7 @@ p {
 }
 .icon-heart:before {
 	content: "\e68c";
+	color: #ff0019;
 }
 .icon-star:before {
 	content: "\e68d";
@@ -1024,6 +1025,7 @@ p {
 }
 .icon-user:before {
 	content: "\e71e";
+	color: #ff0019;
 }
 .icon-user-plus:before {
 	content: "\e71f";
@@ -1138,6 +1140,7 @@ p {
 }
 .icon-store:before {
 	content: "\e744";
+	color: rgb(255, 0, 0);
 }
 .icon-haircut:before {
 	content: "\e745";
@@ -1162,6 +1165,7 @@ p {
 }
 .icon-bag2:before {
 	content: "\e74c";
+	color: rgb(255, 0, 0);
 }
 .icon-cart:before {
 	content: "\e74d";
@@ -1201,10 +1205,11 @@ p {
 }
 .icon-credit-card:before {
 	content: "\e759";
-	color: #dc3545;
+	color: #ff0019;
 }
 .icon-cash-dollar:before {
 	content: "\e75a";
+	color: #ff0019;
 }
 .icon-cash-euro:before {
 	content: "\e75b";
@@ -1580,7 +1585,7 @@ p {
 }
 .icon-bubbles:before {
 	content: "\e7d7";
-	color: #dc3545;
+	color: #ff0019;
 }
 .icon-bubble-dots:before {
 	content: "\e7d8";
@@ -1869,7 +1874,7 @@ p {
 }
 .icon-rocket:before {
 	content: "\e837";
-	color: #dc3545;
+	color: #ff0019;
 }
 .icon-hammer2:before {
 	content: "\e838";
@@ -2053,6 +2058,7 @@ p {
 }
 .icon-cube:before {
 	content: "\e874";
+	color: rgb(255, 0, 0)
 }
 .icon-3d-rotate:before {
 	content: "\e875";
@@ -2359,7 +2365,7 @@ p {
 }
 .icon-sync:before {
 	content: "\e8da";
-	color: #dc3545;
+	color: #ff0019;
 }
 .icon-repeat-one2:before {
 	content: "\e8db";
